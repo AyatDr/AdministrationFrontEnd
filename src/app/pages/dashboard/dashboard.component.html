@@ -1,0 +1,12 @@
+<div *ngIf="data; else loading">
+    <h3>Données du Backend :</h3>
+    <pre>{{ data | json }}</pre>
+  </div>
+  
+  <ng-template #loading>
+    <p>Chargement des données...</p>
+  </ng-template>
+  
+  <div *ngIf="errorMessage">
+    <p style="color: red;">{{ errorMessage }}</p>
+  </div>

@@ -1,0 +1,19 @@
+:host {
+  width: 100%;
+  @media (min-width: 992px) {
+    .login-form {
+      width: 100%;
+      max-width: 450px;
+
+      .mat-form-field {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.text-error {
+  color: #dc3545; /* Bootstrap's red color for error messages */
+ 
+}
+

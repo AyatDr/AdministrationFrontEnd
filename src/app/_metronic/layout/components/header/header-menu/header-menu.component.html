@@ -1,0 +1,68 @@
+<!-- Dashboard -->
+<div class="menu-item me-lg-1 menu-item" >
+  <a class="menu-link py-3" routerLinkActive="active menu-here" routerLink="/dashboard">
+    <span class="menu-title"
+          translate="MENU.DASHBOARD" style="color: white !important;"></span>
+  </a>
+</div>
+
+<!-- Projets -->
+<div class="menu-item me-lg-1  menu-item">
+  <a class="menu-link py-3" routerLinkActive="active menu-here" routerLink="apps/Project">
+    <span class="menu-title" style="color: white !important;">Projets
+    </span>
+  </a>
+</div>
+
+<!-- Tiers -->
+<div class="menu-item menu-lg-down-accordion me-lg-1 menu-dropdown  menu-item" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start">
+  <span class="menu-link py-3" [ngClass]="calculateMenuItemCssClass('/crafted')">
+    <span class="menu-title" style="color: white !important;">Tiers</span>
+    <span class="menu-arrow d-lg-none"></span>
+  </span>
+  <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px" data-kt-menu-dismiss="true" data-popper-placement="bottom-start">
+
+    <div class="menu-item menu-lg-down-accordion me-lg-1" data-kt-menu-trigger="{default:'click', lg: 'hover'}"
+         data-kt-menu-placement="right-start">
+      <span class="menu-link py-3" routerLink="apps/users">
+        <span class="menu-icon"><i
+          class="bi fs-3 bi-person"></i></span>
+        <span class="menu-title" >Clients</span>
+        
+      </span>
+    </div>
+
+    <div class="menu-item menu-lg-down-accordion me-lg-1" data-kt-menu-trigger="{default:'click', lg: 'hover'}"
+         data-kt-menu-placement="right-start">
+      <span class="menu-link py-3" routerLink="apps/Fournisseur">
+        <span class="menu-icon"><i
+          class="bi fs-3 bi-shop"></i></span>
+        <span class="menu-title" data-link="/error">Fournisseur</span>
+       
+      </span>
+      
+    </div>
+    
+    <div class="menu-item menu-lg-down-accordion me-lg-1" data-kt-menu-trigger="{default:'click', lg: 'hover'}"
+         data-kt-menu-placement="right-start">
+      <span class="menu-link py-3" routerLink="apps/employe">
+        <span class="menu-icon"><i
+          class="bi fs-3 bi-tools"></i></span>
+        <span class="menu-title" data-link="/error">Employe</span>
+       
+      </span>
+      
+    </div>
+    
+  </div>
+
+ 
+</div>
+
+<div class="menu-item me-lg-1  menu-item">
+  <a class="menu-link py-3" routerLinkActive="active menu-here" routerLink="apps/Carte">
+    <span class="menu-title " style="color: white !important;">Carte
+    </span>
+  </a>
+</div>
+

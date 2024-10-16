@@ -1,0 +1,75 @@
+<div class="d-flex"> 
+   <div id="map" style="width: 100%; cursor: crosshair;display: block;"></div>
+   <div class="d-flex"> 
+      <div id="map" style="width: 98%; cursor: crosshair;" [ngStyle]="{'height': height}"></div>  
+      <div class="d-flex flex-column align-items-center bg-dark justify-content-between p-5" style="max-width: 30px; background-color: black !important;" bis_skin_checked="1">
+          <!-- Bouton Distance -->	
+          <div id="div_Bouton_Longueur">                             
+              <i class="fa-solid fa-ruler-horizontal" (click)="mission = 'distance'"  style="font-size: 20px; cursor:pointer ;"></i>
+          </div>
+        <!-- Bouton Affichage coordonnées -->
+          <div id="div_Bouton_Coords" bis_skin_checked="1">                              
+             <i class="fa-solid fa-plus" (click)="mission = 'coordonnees'"  style="font-size: 20px; cursor:pointer"></i>
+          </div>  	
+         <!-- Bouton Polyligne -->
+         <div id="div_Bouton_Polyligne" bis_skin_checked="1">                              
+             <i class="fa-solid fa-wave-square" style="font-size: 20px;"></i>
+          </div>
+         <!-- Bouton Polygone -->
+         <div id="div_Bouton_Polygone" bis_skin_checked="1">                              
+             <i class="fa-solid fa-square" (click)="mission ='area'"  style="font-size: 20px; cursor:pointer"></i>
+          </div>
+         <!-- Bouton Valider -->
+         <div id="div_Bouton_Valider" bis_skin_checked="1">                              
+             <i class="fa-solid fa-check" style="font-size: 20px;"></i>
+          </div>           
+         <!-- Bouton Supprimer -->
+         <div id="div_Bouton_Supprimer" bis_skin_checked="1">                              
+             <i class="fa-solid fa-trash" (click)="mission = 'delete'" style="font-size: 20px; cursor:pointer"></i>                     	
+         </div>     
+        <!-- Bouton Annuler -->
+         <div id="div_Bouton_Annuler" bis_skin_checked="1">                              
+             <i class="fa-solid fa-arrow-rotate-left" style="font-size: 20px;"></i>
+          </div>	
+         <!-- Bouton Affichage Propriétés -->
+         <div id="div_Bouton_Proprietes" bis_skin_checked="1">                              
+             <i class="fa-solid fa-circle-info" style="font-size: 20px;"></i>
+          </div>  
+        
+         <!-- Bouton Export Dessin dans un fchier txt -->
+         <div id="div_Bouton_Export" bis_skin_checked="1">                              
+          
+         </div> 
+          <!-- Bouton Export Dessin dans un fichier DXF-->
+         <div id="div_Bouton_Export_DXF" bis_skin_checked="1">                              
+           
+         </div> 
+        <!-- Bouton Export Dessin vers KML -->
+        <div bis_skin_checked="1">
+           
+        </div>
+        <!-- Bouton Enregistrer image -->	 
+        <div id="div_enregistrer_image" bis_skin_checked="1">                              
+         </div>
+         <!-- Bouton Itineraire_Voiture -->	
+          <div id="div_Bouton_Itineraire_Voiture" bis_skin_checked="1">                              
+             <i class="fa-solid fa-route" style="font-size: 30px;"></i>
+          </div>
+         <!-- Bouton ma Position -->	
+          <div id="div_Bouton_Position" bis_skin_checked="1">                              
+             <i class="fa-solid fa-crosshairs" style="font-size: 30px;"></i>
+          </div>
+         <!-- Bouton Calibrage XY -->			 
+          <div id="div_Bouton_Calibrage_XY" bis_skin_checked="1">                              
+             <i class="fa-solid fa-draw-polygon" style="font-size: 30px;"></i>
+          </div>	
+       
+         <!-- Bouton Options -->	
+          <div id="div_Bouton_Options" bis_skin_checked="1">                              
+             <i class="fa-solid fa-gear" style="font-size: 30px;"></i>                      	
+         </div>	
+  
+  
+      </div>
+  </div>
+</div>

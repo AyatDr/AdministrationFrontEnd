@@ -1,0 +1,12 @@
+.menu-item a {
+    
+    text-decoration: none; /* Pour supprimer le soulignement par défaut */
+    cursor: pointer; /* Définir le curseur comme pointer pour indiquer un lien */
+}
+
+
+.menu-item .menu-link.active {
+    transition: color 0.2s ease;
+    background-color: #535252 !important; 
+    
+}

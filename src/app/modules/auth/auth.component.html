@@ -1,0 +1,37 @@
+<div class="d-flex flex-column flex-lg-row flex-column-fluid" style="background-color: rgb(0, 0, 0);">
+
+
+  <!--begin::Aside-->
+  <div class="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center"
+    [ngStyle]="{'background-image': 'url(./assets/media/auth/bg-dark.jpg)'}">
+    <!--begin::Content-->
+    <div class="d-flex flex-column flex-center py-4 px-5 px-md-5 w-100">
+    
+
+
+
+
+
+    </div>
+    <!--end::Content-->
+  </div>
+  <!--end::Aside-->
+
+   <!--begin::Body-->
+  <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10 order-2 order-lg-1">
+    <!--begin::Form-->
+    <div class="d-flex flex-center flex-column flex-lg-row-fluid">
+      <!--begin::Wrapper-->
+      <div class="<?php echo $params['wrapperClass']?> p-10">
+        <router-outlet></router-outlet>
+      </div>
+      <!--end::Wrapper-->
+    </div>
+    <!--end::Form-->
+
+   
+  </div>
+  <!--end::Body-->
+
+
+</div>
