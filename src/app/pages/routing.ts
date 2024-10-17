@@ -61,6 +61,10 @@ const Routing: Routes = [
     path: '**',
     redirectTo: 'error/404',
   },
+  {
+    path: 'apps/FormationDirecteur',
+    loadChildren: () => import('./formation-directeur/formation-directeur.module').then((m) => m.FormationDirecteurModule),
+  },
 ];
 
 export { Routing };

@@ -1,0 +1,62 @@
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .card {
+    width: 300px;
+    height: 250px; /* Reduced card height */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .card-header {
+    height: 120px; /* Reduced header height */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    color: white;
+    padding: 15px;
+  }
+  
+  .profile-circle {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  
+  .card-body {
+    padding: 10px;
+    font-size: 14px;
+    flex-grow: 1; /* Ensure the body takes up the remaining space */
+  }
+  
+  .card-footer {
+    background-color: rgb(214, 213, 213);
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end; /* Align items to the right */
+    align-items: center;
+  }
+  
+  .card-footer i {
+    margin-left: 10px; /* Add space between the icons */
+  }
+  

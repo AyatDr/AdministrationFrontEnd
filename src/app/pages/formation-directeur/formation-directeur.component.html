@@ -1,0 +1,46 @@
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Liste des Formations</h2>
+    
+   
+    <button  class="btn btn-warning ms-2"  >
+      <i class="fas fa-plus"></i>
+
+    </button>
+  </div>
+
+<div class="card-container">
+    <div class="card" *ngFor="let formation of data">
+      <div
+        class="card-header"
+        [ngStyle]="{ 'background-image': 'url(' + formation.image + ')' }"
+      >
+        <div class="card-title">
+          <h3>{{ formation.title }}</h3>
+          <p>{{ formation.subtitle }}</p>
+        </div>
+        <div 
+        class="profile-circle" 
+        [ngStyle]="{ 'background-color': formation.backgroundColor }"
+      >
+        {{ formation.initial }}
+      </div>
+      </div>
+  
+      <div class="card-body">
+        <p>{{ formation.instructor }}</p>
+      </div>
+  
+      <div class="card-footer">
+        <!-- Delete Icon -->
+        <i class="fa fa-trash" title="Supprimer" 
+           style="color: rgb(230, 78, 78); font-size: 20px; cursor: pointer; margin-right: 10px;"></i>
+      
+        <!-- View Details Icon -->
+        <i class="fa fa-eye" title="Voir les détails" 
+           style="color: rgb(10, 64, 134); font-size: 20px; cursor: pointer;"></i>
+      </div>
+      
+    </div>
+  </div>
+  
