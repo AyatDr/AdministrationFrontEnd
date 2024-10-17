@@ -15,10 +15,7 @@
         class="card-header"
         [ngStyle]="{ 'background-image': 'url(' + formation.image + ')' }"
       >
-        <div class="card-title">
-          <h3>{{ formation.title }}</h3>
-          <p>{{ formation.subtitle }}</p>
-        </div>
+       
         <div 
         class="profile-circle" 
         [ngStyle]="{ 'background-color': formation.backgroundColor }"
@@ -28,7 +25,12 @@
       </div>
   
       <div class="card-body">
-        <p>{{ formation.instructor }}</p>
+       
+        <div class="card-title">
+            <h3>{{ formation.label }}</h3>
+            <p>{{ formation.subtitle }}</p>
+          </div>
+          <p>{{ formation.instructor }}</p>
       </div>
   
       <div class="card-footer">

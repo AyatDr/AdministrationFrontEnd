@@ -30,11 +30,12 @@ export class FormationDirecteurComponent implements OnInit {
       (response) => {
         console.log('Données reçues du backend:', response);
         this.data = response.map((item: any) => ({
-          title: item.title,
+          label: item.label,
           subtitle: item.subtitle || '',
           instructor: item.instructor || 'N/A',
           initial: this.getInitial(item.instructor),
           image: this.getRandomImage(), // Assign a random image
+          backgroundColor: this.getRandomColor(),
         }));
         this.cdr.detectChanges();
       },
