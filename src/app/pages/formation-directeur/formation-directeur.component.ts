@@ -32,8 +32,9 @@ export class FormationDirecteurComponent implements OnInit {
         this.data = response.map((item: any) => ({
           label: item.label,
           subtitle: item.subtitle || '',
-          instructor: item.instructor || 'N/A',
-          initial: this.getInitial(item.instructor),
+          instructor_nom: item.professeur.nom ,
+          instructor_prenom: item.professeur.prenom ,
+          initial: this.getInitial(item.professeur.nom ),
           image: this.getRandomImage(), // Assign a random image
           backgroundColor: this.getRandomColor(),
         }));
