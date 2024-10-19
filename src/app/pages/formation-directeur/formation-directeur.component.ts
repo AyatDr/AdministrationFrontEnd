@@ -1,6 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-formation-directeur',

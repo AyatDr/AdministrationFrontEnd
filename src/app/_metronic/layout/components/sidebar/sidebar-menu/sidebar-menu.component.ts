@@ -9,28 +9,20 @@ import { PermissionService } from 'src/app/services/permission-service.service';
 })
 export class SidebarMenuComponent implements OnInit {
 
-  hasListProjectsPermission : boolean;
-  hasDashboardClientsPermission : boolean;
-  hasManageClientsPermission : boolean;
-  hasListClientsPermission : boolean;
-  hasManageCollaboratorsPermission : boolean;
-  hasListCollaboratorsPermission : boolean;
-  hasManagePlanningPermission : boolean;
-  hasManageComptabilitePermission : boolean;
+  hasEtudiantPermission : boolean;
+  hasDirecteurPermission : boolean;
+  hasEnseignantPermission : boolean;
+
 
   constructor( private authService: AuthService, private permissionService: PermissionService) {
-    const auth = null
+    const auth = this.authService.getAuthFromLocalStorage();
     if (auth) {
       this.permissionService.updatePermissions(auth);
 
-      this.hasListProjectsPermission = this.permissionService.hasListProjectsPermission();
-      this.hasDashboardClientsPermission = this.permissionService.hasDashboardClientsPermission();
-      this.hasManageClientsPermission = this.permissionService.hasManageClientsPermission();
-      this.hasListClientsPermission = this.permissionService.hasListClientsPermission();
-      this.hasManageCollaboratorsPermission = this.permissionService.hasManageCollaboratorsPermission();
-      this.hasListCollaboratorsPermission = this.permissionService.hasListCollaboratorsPermission();
-      this.hasManagePlanningPermission = this.permissionService.hasManagePlanningPermission();
-      this.hasManageComptabilitePermission = this.permissionService.hasManageComptabilitePermission();
+      this.hasEtudiantPermission = this.permissionService.hasEtudiantPermission();
+      this.hasDirecteurPermission = this.permissionService.hasDirecteurPermission();
+      this.hasEnseignantPermission = this.permissionService.hasEnseignantPermission();
+      
 
     }
    }

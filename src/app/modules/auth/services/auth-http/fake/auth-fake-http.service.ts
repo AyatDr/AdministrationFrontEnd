@@ -69,17 +69,17 @@ export class AuthHTTPService {
     );
   }
 
-  getUserByToken(token: string): Observable<UserModel | undefined> {
-    const user = UsersTable.users.find((u: UserModel) => {
-      return u.authToken === token;
-    });
+  // getUserByToken(token: string): Observable<UserModel | undefined> {
+  //   const user = UsersTable.users.find((u: UserModel) => {
+  //     return u.authToken === token;
+  //   });
 
-    if (!user) {
-      return of(undefined);
-    }
+  //   if (!user) {
+  //     return of(undefined);
+  //   }
 
-    return of(user);
-  }
+  //   return of(user);
+  // }
 
   getAllUsers(): Observable<UserModel[]> {
     return this.http.get<UserModel[]>(API_USERS_URL);
