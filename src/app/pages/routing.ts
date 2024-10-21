@@ -65,6 +65,10 @@ const Routing: Routes = [
     path: 'apps/FormationDirecteur',
     loadChildren: () => import('./formation-directeur/formation-directeur.module').then((m) => m.FormationDirecteurModule),
   },
+  {
+    path: 'apps/FormationSemestreDirecteur',
+    loadChildren: () => import('./semestre-formation-directeur/semestre-formation-directeur.module').then((m) => m.SemestreFormationDirecteurModule),
+  },
 ];
 
 export { Routing };
