@@ -31,7 +31,7 @@ export class SemestreFormationDirecteurComponent {
 
 
   getRandomColor(): string {
-    const colors = ['#FF5733', '#33FF57', '#3357FF', '#FFC300', '#DAF7A6'];
+    const colors = ['#FF5733', '#007BFF', '#0056D2', '#003C9E', '#001F6C'];
     const randomIndex = Math.floor(Math.random() * colors.length);
     return colors[randomIndex];
   }

@@ -20,25 +20,25 @@
       </div>
     </div>
 
-    <!-- Formations 
-    <div  class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show" >
+     
+    <div  class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show"  *ngIf="this.hasEnseignantPermission">
      
       <span class="menu-link"   routerLink="">
         <span class="menu-icon">
-          <i class="ki-outline ki-file fs-2x" style="color: rgb(10, 64, 134);"></i>
+          <i class="fa fa-graduation-cap" style="color: rgb(10, 64, 134); font-size: 24px;"></i>
 
 
         </span>
         <span
-          class="menu-title">Formations
+          class="menu-title"  style="color: black !important;">Formations
         </span>
       
       </span>
     </div>
- -->
+
 
    <!-- Formations -->
-   <div  class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show" >
+   <div  class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show"  *ngIf="this.hasDirecteurPermission" >
      
     <span class="menu-link"   routerLink="/apps/FormationDirecteur">
       <span class="menu-icon">
@@ -47,7 +47,7 @@
       </span>
       
       <span
-        class="menu-title">Formations
+        class="menu-title" style="color: black !important;">Formations
       </span>
     
     </span>
@@ -61,16 +61,16 @@
 
 
         <!-- Professeurs -->
-        <div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show" >
+        <div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show"  *ngIf="this.hasDirecteurPermission">
      
           <span class="menu-link"   routerLink="">
             <span class="menu-icon">
               <!-- Professor Icon -->
-              <i class="fa fa-chalkboard-teacher" style="color: rgb(15, 63, 119); font-size: 24px;"></i>
+              <i class="fa fa-chalkboard-teacher" style="color: rgb(10, 64, 134);; font-size: 24px;"></i>
             </span>
             
             <span
-              class="menu-title">Professeurs
+              class="menu-title" style="color: black !important;">Professeurs
             </span>
           
           </span>
@@ -79,16 +79,16 @@
     
     
      <!-- Etudiants -->
-     <div   class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+     <div   class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show"  *ngIf="this.hasDirecteurPermission">
 
       <span class="menu-link" routerLink="">
         <span class="menu-icon">
           <!-- Student Icon -->
-          <i class="fa fa-user-graduate" style="color: rgb(15, 63, 119); font-size: 24px;"></i>
+          <i class="fa fa-user-graduate" style="color: rgb(10, 64, 134);; font-size: 24px;"></i>
         </span>
         
         <span
-          class="menu-title">Etudiants
+          class="menu-title" style="color: black !important;">Etudiants
         </span>
       
       </span>

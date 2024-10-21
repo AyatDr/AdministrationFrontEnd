@@ -45,6 +45,7 @@
     background-repeat: no-repeat;
     display: flex;
     justify-content: space-between;
+    transition: transform 0.2s ease-in-out;
     align-items: center;
     position: relative; /* Required for absolute positioning of child elements */
     color: white;
@@ -53,6 +54,9 @@
     border-radius: 10px; /* Optional: Rounded corners */
   }
   
+  .card:hover {
+    transform: scale(1.05);
+  }
   /* Overlay to improve text readability */
   .card-header::before {
     content: "";
@@ -95,7 +99,7 @@
   }
   
   .card-footer {
-    background-color: rgb(214, 213, 213);
+    background-color: rgb(197, 209, 226);
     padding: 10px;
     display: flex;
     justify-content: flex-end; /* Align items to the right */

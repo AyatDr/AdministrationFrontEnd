@@ -30,36 +30,5 @@ export class SidebarMenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // hasDashboardClientsPermission(): boolean {
-  //   return this.permissionService.hasClientPermission('500'); // Vérifie si l'utilisateur peut accéder au dashboard des clients
-  // }
 
-  // hasListProjectsPermission(): boolean {
-  //   return this.permissionService.hasProjetPermission('0'); // Vérifie si l'utilisateur peut lister les projets
-  // }
-
-  // hasManagePlanningPermission(): boolean {
-  //   return this.permissionService.hasClientPermission('400'); // Vérifie si l'utilisateur peut gérer la planification
-  // }
-  
-  // hasManageComptabilitePermission(): boolean {
-  //   return this.permissionService.hasClientPermission('300'); // Vérifie si l'utilisateur peut gérer la comptabilité
-  // }
-
-  // hasManageClientsPermission(): boolean {
-  //   return this.permissionService.hasClientPermission('100'); // Vérifie si l'utilisateur peut gérer les clients
-  // }
-  // hasListClientsPermission(): boolean {
-  //   return this.permissionService.hasClientPermission('101'); // Vérifie si l'utilisateur peut lister les projets
-  // }
-  
-  // hasManageCollaboratorsPermission(): boolean {
-  //   return this.permissionService.hasClientPermission('200'); // Vérifie si l'utilisateur peut gérer les collaborateurs
-  // }
-
-  // hasListCollaboratorsPermission(): boolean {
-  //   return this.permissionService.hasClientPermission('201'); // Vérifie si l'utilisateur peut lister les projets
-  // }
-
-  
 }

@@ -3,12 +3,12 @@
   
   <!--begin::Heading-->
   <div class="text-center mb-11">
-    <h1 class="fw-bolder mb-3" style="text-transform: uppercase; color: white">
+    <h1 class="fw-bolder mb-3" style="text-transform: uppercase; color: orange">
       Se Connecter
     </h1>
     
     <!--begin::Subtitle-->
-    <div class="fw-semibold fs-6" style="font-size: 20px;text-transform: uppercase;color: rgb(255, 166, 0);;">
+    <div class="fw-semibold fs-6" style="font-size: 20px;text-transform: uppercase;color: rgb(10, 64, 134); font-weight: bold !important;">
       Connectez-vous pour gérer vos activités académiques
     </div>
     <!--end::Subtitle--->
@@ -16,51 +16,7 @@
   </div>
   <!--end::Heading-->
 
-  <!--begin::Login options-->
-  <!-- <div class="row g-3 mb-9"> -->
-    <!--begin::Col-->
-    <!-- <div class="col-md-6">
-     begin::Google link--->
-      <!-- <a href="#"
-        class="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100">
-        <img alt="Logo" src="./assets/media/svg/brand-logos/google-icon.svg" class="h-15px me-3" />
-        Sign in with Google
-      </a> -->
-      <!--end::Google link--->
-    <!-- </div> -->
-    <!--end::Col-->
-
-    <!--begin::Col-->
-   <!--  <div class="col-md-6"> -->
-      <!--begin::Google link--->
-      <!-- <a href="#"
-        class="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100">
-        <img alt="Logo" src="./assets/media/svg/brand-logos/apple-black.svg" class="theme-light-show h-15px me-3" />
-        <img alt="Logo" src="./assets/media/svg/brand-logos/apple-black-dark.svg" class="theme-dark-show h-15px me-3" />
-        Sign in with Apple
-      </a> -->
-      <!--end::Google link--->
-    <!-- </div> -->
-    <!--end::Col-->
-  <!-- </div> -->
-  <!--end::Login options-->
-
-  <!--begin::Separator-->
-  <!-- <div class="separator separator-content my-14">
-    <span class="w-125px text-gray-500 fw-semibold fs-7">Or with email</span>
-  </div> -->
-  <!--end::Separator-->
-
-  <!-- begin::Alert info-->
-  <!-- <ng-container *ngIf="!hasError">
-    <div class="mb-10  p-8 rounded" style="">
-      <div  class="text-error">
-        Utilisez votre <strong>email</strong> et votre <strong>mot de passe</strong> pour continuer.
-      </div>
-      
-    </div>
-  </ng-container> -->
-  <!-- end::Alert info-->
+  
 
 
   <!-- begin::Alert error-->
@@ -75,7 +31,7 @@
 
   <!--begin::Form group-->
   <div class="fv-row mb-8">
-    <label class="form-label fs-6 " style="color: #fff;">Email</label>
+    <label class="form-label fs-6 " style="color: #000;">Email</label>
     <input class="form-control bg-transparent " type="email" name="email" formControlName="email" autocomplete="off"
       [ngClass]="{
         'is-invalid': loginForm.controls['email'].invalid,
@@ -107,7 +63,7 @@
   <!--begin::Form group-->
   <div class="fv-row mb-3">
 
-    <label class="form-label  fs-6 mb-0" style="color: #fff;">Password</label>
+    <label class="form-label  fs-6 mb-0" style="color: #000;">Password</label>
 
     <input class="form-control bg-transparent" type="password" name="password" autocomplete="off"
       formControlName="password" [ngClass]="{
@@ -147,7 +103,7 @@
 
   <!--begin::Action-->
   <div class="d-grid mb-10">
-    <button type="submit" id="kt_sign_in_submit" class="btn" [ngStyle]="{'background-color': 'orange', 'color': 'white'}" [disabled]="loginForm.invalid">
+    <button type="submit" id="kt_sign_in_submit" class="btn" [ngStyle]="{'background-color': 'rgb(10, 64, 134)', 'color': 'white'}" [disabled]="loginForm.invalid">
       <ng-container *ngIf="isLoading$ | async">
         <span class="indicator-progress" [style.display]="'block'">
           Veuillez patienter...

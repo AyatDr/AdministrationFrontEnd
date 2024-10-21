@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { HttpService } from 'src/app/services/http.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { HttpService } from 'src/app/services/http.service';
 
 @Component({
   selector: 'app-formation-directeur',
@@ -16,19 +17,28 @@ export class FormationDirecteurComponent implements OnInit {
 
   imageBasePath: string = 'assets/formation/';
   imageCount: number = 5;
+  //Token variables
+  auth:any;
+  token:any;
 
-  constructor(
+  constructor( private authService: AuthService,
     private http: HttpService,
     private cdr: ChangeDetectorRef,
     private router: Router
-  ) {}
+  ) {
+     this.auth = this.authService.getAuthFromLocalStorage();
+     this.token=this.auth.authToken;
+     console.log("Token:" +   this.token)
+
+  }
 
   ngOnInit(): void {
     this.loadData();
   }
 
   loadData(): void {
-    this.http.getData('/formation/list').subscribe(
+    
+    this.http.getDataAuth('/formation/list').subscribe(
       (response) => {
         console.log('Données reçues du backend:', response);
 
@@ -36,6 +46,8 @@ export class FormationDirecteurComponent implements OnInit {
         this.data = response.map((item: any) => ({
           ...item, // Inclure toutes les propriétés de l'objet d'origine
           initial: this.getInitial(item.professeur.nom),
+          instructor_nom:item.professeur.nom,
+          instructor_prenom:item.professeur.prenom,
           image: this.getRandomImage(),
           backgroundColor: this.getRandomColor(),
         }));
