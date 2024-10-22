@@ -45,9 +45,7 @@ export class FormationDirecteurComponent implements OnInit {
         // On stocke l'objet entier (sans transformation partielle)
         this.data = response.map((item: any) => ({
           ...item, // Inclure toutes les propriétés de l'objet d'origine
-          initial: this.getInitial(item.professeur.nom),
-          instructor_nom:item.professeur.nom,
-          instructor_prenom:item.professeur.prenom,
+          initial: this.getInitial(item.label),
           image: this.getRandomImage(),
           backgroundColor: this.getRandomColor(),
         }));
@@ -62,7 +60,7 @@ export class FormationDirecteurComponent implements OnInit {
   }
 
   getInitial(name: string): string {
-    return name ? name.charAt(0).toUpperCase() : '?';
+    return name ? name.slice(0, 2).toUpperCase() : '?';
   }
 
   getRandomImage(): string {
