@@ -25,9 +25,6 @@ export class AuthHTTPService {
     );
   }
 
-
-
-
   getUserByToken(token: string): Observable<UserModel> { 
     console.log('Token being sent:', token);
     const httpHeaders = new HttpHeaders({
