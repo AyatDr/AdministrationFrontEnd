@@ -47,10 +47,6 @@ const Routing: Routes = [
     path: 'apps/roles',
     loadChildren: () => import('./role/role.module').then((m) => m.RoleModule),
   },
-  // {
-  //   path: 'apps/permissions',
-  //   loadChildren: () => import('./permission/permission.module').then((m) => m.PermissionModule),
-  // },
   
   // {
   //   path: '',
@@ -74,6 +70,14 @@ const Routing: Routes = [
     path: 'prof/formations/list',
     loadChildren: () => import('./formation-professeur/formation-professeur.module').then((m) => m.FormationProfesseurModule),
 
+  },
+  {
+    path: 'apps/ProfesseurDirecteur',
+    loadChildren: () => import('./professeur-directeur/professeur-directeur.module').then((m) => m.ProfesseurDirecteurModule),
+  },
+  {
+    path: 'apps/ProfesseurEtudiant',
+    loadChildren: () => import('./etudiant-directeur/etudiant-directeur.module').then((m) => m.EtudiantDirecteurModule),
   },
 ];
 

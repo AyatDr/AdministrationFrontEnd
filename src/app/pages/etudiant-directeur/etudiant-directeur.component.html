@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Liste des Etudiants</h2>
+    
+   
+    <button class="btn btn-warning ms-2">
+        <i class="fas fa-plus"></i> Ajouter Etudiant
+      </button>
+  </div>
+
+
+  <div class="container mt-5">
+    
+    <table class="table table-bordered table-striped">
+      <thead class="table-dark text-center">
+        <tr>
+          <th style="background-color: black !important; color: white !important;">Avatar</th>
+          <th style="background-color: black !important; color: white !important;">Nom</th>
+          <th style="background-color: black !important; color: white !important;">Prénom</th>
+          <th style="background-color: black !important; color: white !important;">Email</th>
+          <th style="background-color: black !important; color: white !important;">Formation</th>
+          <th style="background-color: black !important; color: white !important;">Semestre</th>
+          <th style="background-color: black !important; color: white !important;">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let etudiant of etudiants">
+          <td class="text-center">
+            <div class="circle" [ngStyle]="{'background-color': getRandomColor()}">
+              {{ etudiant.nom[0] + etudiant.prenom[0] | uppercase }}
+            </div>
+          </td>
+          <td>{{ etudiant.nom }}</td>
+          <td>{{ etudiant.prenom }}</td>
+          <td>
+            <i class="fas fa-envelope me-2 text-dark"></i> 
+            {{ etudiant.email }}
+          </td>
+          <td>{{ etudiant.formation.label }}</td>
+          <td>{{ etudiant.semestre.label }}</td>
+    
+          <!-- Colonne des actions -->
+          <td>
+            <div class="d-flex justify-content-center align-items-center">
+              <button class="btn btn-sm btn-success me-2" (click)="onEdit(etudiant)">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn btn-sm btn-danger" (click)="onDelete(etudiant)">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+           
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+  </div>
+  

@@ -97,39 +97,31 @@ export class AuthService implements OnDestroy {
   
   
 
-  getUserByToken(): Observable<UserType> {
-    // Récupérer l'authentification depuis le local storage
+  getUserByToken(): Observable<AuthModel | null> {
     const auth = this.getAuthFromLocalStorage();
     console.log('Auth from local storage:', auth);
   
-    // Si aucun auth ou authToken n'est trouvé, retourner undefined
     if (!auth || !auth.authToken) {
-      return of(undefined);
+      return of(null); // Retourne null au lieu de undefined
     }
   
-    // Déclencher l'indicateur de chargement
     this.isLoadingSubject.next(true);
   
-    // Faire la requête pour récupérer l'utilisateur par token
     return this.authHttpService.getUserByToken(auth.authToken).pipe(
-      // Traiter la réponse pour vérifier si un utilisateur est retourné
       map((user: UserType) => {
-        console.log('UUUUUU');
         console.log('User fetched:', auth.user);
         if (auth.user) {
-          // Si un utilisateur est trouvé, mettre à jour le sujet de l'utilisateur courant
           this.currentUserSubject.next(auth.user);
         } else {
-          // Si aucun utilisateur n'est trouvé, se déconnecter (optionnel pour diagnostic)
           console.log('No user returned, should log out here.');
           // this.logout();
         }
-        return auth.user;
+        return auth;
       }),
-      // Finaliser le processus en désactivant l'indicateur de chargement
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
+  
   
 
   // need create new user then login
@@ -166,11 +158,8 @@ export class AuthService implements OnDestroy {
     return false;
   }
   
-  private auth: AuthModel | null = null;
-   // Définir l'état d'authentification localement
-   setAuth(auth: AuthModel): void {
-    this.auth = auth;
-  }
+ 
+ 
    getAuthFromLocalStorage(): AuthModel | undefined {
     try {
       const lsValue = localStorage.getItem(this.authLocalStorageToken);

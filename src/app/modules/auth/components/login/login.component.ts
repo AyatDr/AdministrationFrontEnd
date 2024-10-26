@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subscription, Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
-import { UserModel } from '../../models/user.model';
-import { AuthService } from '../../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
+import { first } from 'rxjs/operators';
+import { AuthModel } from '../../models/auth.model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -76,17 +76,21 @@ export class LoginComponent implements OnInit, OnDestroy {
     const loginSubscr = this.authService
       .login(this.f.email.value, this.f.password.value)
       .pipe(first())
-      .subscribe((user: UserModel | undefined) => {
-        console.log('Authenticated user:', user);
-        if (user) {
-          this.router.navigate([this.returnUrl]);
+      .subscribe((auth: AuthModel | undefined) => {
+        console.log('Authenticated user:', auth?.user);
+  
+        if (auth?.permissions === 'directeur') {
+          this.router.navigate(['dashboard']);
+        } else if (auth?.permissions === 'prof') {
+          this.router.navigate(['prof/formations/list']);
         } else {
           this.hasError = true;
         }
       });
-      
+  
     this.unsubscribe.push(loginSubscr);
   }
+  
 
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
