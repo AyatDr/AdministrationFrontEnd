@@ -72,6 +72,7 @@ const Routing: Routes = [
 
   },
   {
+
     path: 'apps/ProfesseurDirecteur',
     loadChildren: () => import('./professeur-directeur/professeur-directeur.module').then((m) => m.ProfesseurDirecteurModule),
   },
@@ -79,6 +80,23 @@ const Routing: Routes = [
     path: 'apps/ProfesseurEtudiant',
     loadChildren: () => import('./etudiant-directeur/etudiant-directeur.module').then((m) => m.EtudiantDirecteurModule),
   },
+  {
+  path: 'apps/FormationModuleDirecteur',
+  loadChildren: () => import('./module-formation-directeur/module-formation-directeur.module').then((m) => m.ModuleFormationDirecteurModule),
+ },
+ {
+  path: 'apps/FormationMatiereDirecteur',
+  loadChildren: () => import('./matiere-formation-directeur/matiere-formation-directeur.module').then((m) => m.MatiereFormationDirecteurModule),
+ },
+ {
+  path: 'apps/FormationCoursDirecteur',
+  loadChildren: () => import('./cours-formation-directeur/cours-formation-directeur.module').then((m) => m.CoursFormationDirecteurModule),
+ },
+ {
+  path: 'apps/FormationCoursDetailDirecteur',
+  loadChildren: () => import('./cours-details-directeur/cours-details-directeur.module').then((m) => m.CoursDetailsDirecteurModule),
+ }
+
 ];
 
 export { Routing };

@@ -1,19 +1,28 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Liste des Semestres de :   <span class="badge bg-warning" style="font-size: 14px;">{{ formation.label }}</span></h2>
-    <button  class="btn btn-warning ms-2"  >
-        <i class="fas fa-plus"></i>
-  
-      </button>
+    <h2>Liste des Semestres de :  <span 
+      class="badge bg-dark ms-3 badge-large"
+      style="font-size: 16px;"
+    >
+      {{ formation.label }}
+    </span></h2>
+    <button 
+    class="btn btn-warning ms-4" 
+    data-bs-toggle="modal" 
+    data-bs-target="#addSemestreModal"
+  >
+    <i class="fas fa-plus"></i> Ajouter Semestre
+  </button>
   </div>
   
   <div class="card-container">
     <div 
       class="card" 
       *ngFor="let semestre of semestres" 
+     
       style="cursor: pointer"
     >
       <div 
-        class="card-header" 
+        class="card-header"  (click)="goToModulesPage(semestre)"
         [ngStyle]="{ 'background-color': getRandomColor() }"
       >
         <h3 class="header-title">{{ semestre.label }}</h3>
@@ -22,7 +31,7 @@
         </div>
       </div>
   
-      <div class="card-body">
+      <div class="card-body"  (click)="goToModulesPage(semestre)">
         <div class="info-row">
           <i class="fa fa-calendar-day info-icon" title="Date de début"></i>
           <span class="badge bg-primary">{{ semestre.dateDebut }}</span>
@@ -33,18 +42,179 @@
         </div>
       </div>
   
-      <div class="card-footer">
-        <i
-        class="fa fa-trash"
+      <div class="card-footer" >
+        <i (click)="deleteSemestre(semestre.id)"
+        class="fa fa-trash delete-icon"
         title="Supprimer"
-        style="color: rgb(230, 78, 78); font-size: 20px; cursor: pointer; margin-right: 10px;"
+        [ngStyle]="{ color: hoveredDelete ? 'rgb(180, 50, 50)' : 'rgb(230, 78, 78)' }"
+        (mouseenter)="hoveredDelete = true"
+        (mouseleave)="hoveredDelete = false"
       ></i>
-
       <i
-        class="fa fa-eye"
-        title="Voir les détails"
-        style="color: rgb(10, 64, 134); font-size: 20px; cursor: pointer;"
-      ></i>
+     
+      class="fa fa-edit edit-icon"
+      title="Modifier"
+      [ngStyle]="{ color: hoveredEdit ? 'rgb(0, 128, 0)' : 'rgb(34, 139, 34)' }"
+      (mouseenter)="hoveredEdit = true"
+      (mouseleave)="hoveredEdit = false"
+      (click)="editSemestre(semestre)"
+      data-bs-toggle="modal" 
+      data-bs-target="#editSemestreModal"
+    ></i>
       </div>
     </div>
   </div>
+
+
+
+  <!-- Modal Ajouter Semestre -->
+<div class="modal fade" id="addSemestreModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle">Ajouter un Nouveau Semestre</h5>
+        <button 
+          type="button" 
+          class="btn-close" 
+          data-bs-dismiss="modal" 
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <form (ngSubmit)="onSubmit()" #semestreForm="ngForm">
+          <div class="mb-3">
+            <label for="label" class="form-label">Label :</label>
+            <input 
+              type="text" 
+              id="label" 
+              class="form-control" 
+              [(ngModel)]="semestreData.label" 
+              name="label" 
+              required 
+              placeholder="Entrez le label du semestre"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="dateDebut" class="form-label">Date de Début :</label>
+            <input 
+              type="date" 
+              id="dateDebut" 
+              class="form-control" 
+              [(ngModel)]="semestreData.date_debut" 
+              name="date_debut" 
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="dateFin" class="form-label">Date de Fin :</label>
+            <input 
+              type="date" 
+              id="dateFin" 
+              class="form-control" 
+              [(ngModel)]="semestreData.date_fin" 
+              name="date_fin" 
+              required
+            />
+          </div>
+
+
+          <div class="modal-footer">
+            <button 
+              type="submit" 
+              class="btn btn-success"
+              [disabled]="!semestreForm.form.valid"
+              data-bs-dismiss="modal"
+            >
+              Enregistrer
+            </button>
+            <button 
+              type="button" 
+              class="btn btn-secondary" 
+              data-bs-dismiss="modal"
+            >
+              Annuler
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editSemestreModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle">Modifier Semestre</h5>
+        <button 
+          type="button" 
+          class="btn-close" 
+          data-bs-dismiss="modal" 
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <form (ngSubmit)="onSubmitEdit()" #semestreForm="ngForm">
+          <div class="mb-3">
+            <label for="label" class="form-label">Label :</label>
+            <input 
+              type="text" 
+              id="label" 
+              class="form-control" 
+              [(ngModel)]="editSemesetre.label" 
+              name="label" 
+              required 
+              placeholder="Entrez le label du semestre"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="dateDebut" class="form-label">Date de Début :</label>
+            <input 
+              type="date" 
+              id="dateDebut" 
+              class="form-control" 
+              [(ngModel)]="editSemesetre.date_debut" 
+              name="date_debut" 
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="dateFin" class="form-label">Date de Fin :</label>
+            <input 
+              type="date" 
+              id="dateFin" 
+              class="form-control" 
+              [(ngModel)]="editSemesetre.date_fin" 
+              name="date_fin" 
+              required
+            />
+          </div>
+
+
+          <div class="modal-footer">
+            <button 
+              type="submit" 
+              class="btn btn-success"
+              data-bs-dismiss="modal"
+            >
+              Enregistrer
+            </button>
+            <button 
+              type="button" 
+              class="btn btn-secondary" 
+              data-bs-dismiss="modal"
+            >
+              Annuler
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

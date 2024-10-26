@@ -21,7 +21,9 @@ export class HttpService {
     console.log("Token:" +   this.token)
     console.log('Token being sent:', this.token);
      this.httpHeadersAuth = new HttpHeaders({
-        Authorization: `Bearer ${this.token}`,
+         'Authorization': `Bearer ${this.token}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json' 
     });
    }
 

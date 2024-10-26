@@ -37,7 +37,7 @@ export class EtudiantDirecteurComponent {
         this.etudiants = etudiantsResponse;
   
         // Charger les formations après avoir récupéré les étudiants
-        this.http.getDataAuth('/formation/list').subscribe(
+        this.http.getDataAuth('/directeur/formation/list').subscribe(
           (formationsResponse) => {
             console.log('Formations reçues du backend:', formationsResponse);
             this.formations = formationsResponse;

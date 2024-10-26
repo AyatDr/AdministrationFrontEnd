@@ -2,20 +2,27 @@
     <h2>Liste des Formations</h2>
     
    
-    <button  class="btn btn-warning ms-2"  >
-      <i class="fas fa-plus"></i>
-    </button>
+    <button 
+    type="button" 
+    class="btn btn-warning ms-4 " 
+    data-bs-toggle="modal" 
+    data-bs-target="#addFormationModal"
+  >
+    <i class="fas fa-plus"></i> Ajouter Formation
+  </button>
+
   </div>
 
   <div class="card-container">
     <div 
       class="card" 
       *ngFor="let formation of data" 
-      (click)="goToSemestersPage(formation)"
+     
       style="cursor: pointer"
     >
       <div
         class="card-header"
+        (click)="goToSemestersPage(formation)"
         [ngStyle]="{ 'background-image': 'url(' + formation.image + ')' }"
       >
         <div
@@ -26,26 +33,171 @@
         </div>
       </div>
   
-      <div class="card-body">
+      <div class="card-body"  (click)="goToSemestersPage(formation)">
         <div class="card-title">
-          <h3>{{ formation.label }}</h3>
+          <h4>{{ formation.label }}</h4>
         </div>
+    <p> {{ formation.description}}</p>
       </div>
   
       <div class="card-footer">
-        <i
-          class="fa fa-trash"
-          title="Supprimer"
-          style="color: rgb(230, 78, 78); font-size: 20px; cursor: pointer; margin-right: 10px;"
-        ></i>
-  
-        <i
-          class="fa fa-eye"
-          title="Voir les détails"
-          style="color: rgb(10, 64, 134); font-size: 20px; cursor: pointer;"
-        ></i>
+        <i (click)="deleteFormation(formation.id)"
+        class="fa fa-trash delete-icon"
+        title="Supprimer"
+        [ngStyle]="{ color: hoveredDelete ? 'rgb(180, 50, 50)' : 'rgb(230, 78, 78)' }"
+        (mouseenter)="hoveredDelete = true"
+        (mouseleave)="hoveredDelete = false"
+        style="font-size: 20px; cursor: pointer;"
+      ></i>
+      
+   
+
+      <i
+     
+      class="fa fa-edit edit-icon"
+      title="Modifier"
+      [ngStyle]="{ color: hoveredEdit ? 'rgb(0, 128, 0)' : 'rgb(34, 139, 34)' }"
+      (mouseenter)="hoveredEdit = true"
+      (mouseleave)="hoveredEdit = false"
+      (click)="editFormation(formation)"
+      data-bs-toggle="modal" 
+      data-bs-target="#editFormationModal"
+    ></i>
+   
+    
+      
       </div>
     </div>
   </div>
   
-  
+   <!-- Modal Bootstrap -->
+   <div class="modal fade" id="addFormationModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitle">Ajouter une Nouvelle Formation</h5>
+          <button 
+            type="button" 
+            class="btn-close" 
+            data-bs-dismiss="modal" 
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <div class="modal-body">
+          <form (ngSubmit)="onSubmit()" #formationForm="ngForm">
+            <div class="mb-3">
+              <label for="nom" class="form-label">Nom de la Formation :</label>
+              <input 
+                type="text" 
+                id="nom" 
+                class="form-control" 
+                [(ngModel)]="formation.label" 
+                name="nom" 
+                required 
+                placeholder="Entrez le nom de la formation"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="description" class="form-label">Description :</label>
+              <textarea 
+                id="description" 
+                class="form-control" 
+                [(ngModel)]="formation.description" 
+                name="description" 
+                required 
+                placeholder="Entrez la description de la formation"
+              ></textarea>
+            </div>
+
+            <div class="modal-footer">
+              <button 
+                type="submit" 
+                class="btn btn-success"
+                [disabled]="!formationForm.form.valid"
+                data-bs-dismiss="modal"
+              >
+                Enregistrer
+              </button>
+              <button 
+                type="button" 
+                class="btn btn-secondary" 
+                data-bs-dismiss="modal"
+              >
+                Annuler
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <!------------------Edit formation---------------------> 
+ <div class="modal fade" id="editFormationModal" tabindex="-1" aria-labelledby="editModalTitle" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalTitle">Modifier Formation</h5>
+        <button 
+          type="button" 
+          class="btn-close" 
+          data-bs-dismiss="modal" 
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <form (ngSubmit)="onSubmitEdit()" #editFormationForm="ngForm">
+          <div class="mb-3">
+            <label for="nom" class="form-label">Nom de la Formation :</label>
+            <input 
+              type="text" 
+              id="nom" 
+              class="form-control" 
+              [(ngModel)]="editformation.label" 
+              name="nom" 
+              required 
+              placeholder="Entrez le nom de la formation"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="description" class="form-label">Description :</label>
+            <textarea 
+              id="description" 
+              class="form-control" 
+              [(ngModel)]="editformation.description" 
+              name="description" 
+              required 
+              placeholder="Entrez la description de la formation"
+            ></textarea>
+          </div>
+
+          <div class="modal-footer">
+            <button 
+              type="submit" 
+              class="btn btn-success"
+              [disabled]="!editFormationForm.form.valid"
+              data-bs-dismiss="modal"
+            >
+              Enregistrer
+            </button>
+            <button 
+              type="button" 
+              class="btn btn-secondary" 
+              data-bs-dismiss="modal"
+            >
+              Annuler
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

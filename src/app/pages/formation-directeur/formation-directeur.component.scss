@@ -99,7 +99,7 @@
   }
   
   .card-footer {
-    background-color: rgb(197, 209, 226);
+    background-color: #f0f4f8;
     padding: 10px;
     display: flex;
     justify-content: flex-end; /* Align items to the right */
@@ -108,5 +108,50 @@
   
   .card-footer i {
     margin-left: 10px; /* Add space between the icons */
+
+  }
+
+
+
+  
+  
+  .modal-content {
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-header {
+    background-color: #007bff;
+    color: white;
+    border-radius: 15px 15px 0 0;
+  }
+  
+  .form-control {
+    border-radius: 8px;
+  }
+  
+  textarea.form-control {
+    resize: none;
+    height: 100px;
+  }
+  
+  .modal-footer button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .modal-footer .btn-success {
+    background-color: #28a745;
+    border: none;
+  }
+  
+  .modal-footer .btn-secondary {
+    background-color: #6c757d;
+    border: none;
+  }
+  .edit-icon{
+    font-size: 20px;
   }
   

@@ -44,9 +44,23 @@
     right: 15px;
   }
   
+  .card-body {
+    font-size: 14px;
+    text-align: left;
+    display: flex;
+    justify-content: space-between; /* Contenu aligné horizontalement */
+    align-items: center; /* Centrage vertical */
+    padding: 0px 8px; /* Réduction maximale du padding */
+    height: 30px; /* Hauteur encore réduite */
+    line-height: 1; /* Évite l'espacement vertical supplémentaire */
+    margin: 0; /* Suppression des marges */
+  }
+  
+  
+  
   .card {
     width: 300px;
-    height: 230px; /* Réduction de la hauteur */
+    height: 210px; /* Hauteur légèrement réduite */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -56,13 +70,6 @@
     background-color: white;
   }
   
-  .card-body {
-    font-size: 14px;
-    text-align: left;
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Aligner verticalement */
-  }
 
   .card .card-body {
     padding: 5px  20px !important;
@@ -87,7 +94,7 @@
   }
   
   .card-footer {
-    background-color: rgb(197, 209, 226);
+    background-color: #f0f4f8;
     padding: 5px 10px;
     display: flex;
     justify-content: flex-end;
@@ -103,5 +110,61 @@
   
   .card-footer i:hover {
     color: rgb(0, 0, 0);
+  }
+  .badge-large {
+    padding: 10px 15px;
+    font-size: 8px;
+    border-radius: 15px;
+    background-color: rgb(0, 128, 0) !important;
+    color: white;
+  }
+  
+  
+
+  
+  .add-formation-btn {
+    margin-bottom: 20px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .modal-content {
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-header {
+    background-color: #007bff;
+    color: white;
+    border-radius: 15px 15px 0 0;
+  }
+  
+  .form-control {
+    border-radius: 8px;
+  }
+  
+  textarea.form-control {
+    resize: none;
+    height: 100px;
+  }
+  
+  .modal-footer button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .modal-footer .btn-success {
+    background-color: #28a745;
+    border: none;
+  }
+  
+  .modal-footer .btn-secondary {
+    background-color: #6c757d;
+    border: none;
   }
   
