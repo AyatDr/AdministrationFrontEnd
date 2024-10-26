@@ -1,0 +1,30 @@
+/* Styles par défaut avec ombre et transition */
+.chart-card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Au survol : Légère augmentation de la taille */
+  .chart-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Plein écran */
+  .chart-card.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    padding: 40px;
+    background-color: #fff;
+    box-shadow: none;
+    border-radius: 0;
+    transition: all 0.5s ease-in-out;
+  }
+  
