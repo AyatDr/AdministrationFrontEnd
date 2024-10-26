@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { HttpService } from 'src/app/services/http.service';
 import { FormsModule } from '@angular/forms';
 import { catchError, of } from 'rxjs';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-semestre-formation-directeur',
   standalone: true,
@@ -103,15 +104,21 @@ export class SemestreFormationDirecteurComponent {
     return `${year}-${month}-${day}`;
   }
 
- onSubmit(): void {
+  onSubmit(): void {
     const url = '/directeur/addSemestre'; // URL du backend Spring Boot
     const parsedId = parseInt(this.semestreData.fk_form as any, 10);
   
     if (isNaN(parsedId)) {
       console.error('ID de formation invalide.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: 'L\'ID de la formation est invalide.',
+        confirmButtonColor: '#d33',
+      });
       return;
     }
-    //this.semestreData.fk_form = parsedId;
+  
     const payload = {
       label: this.semestreData.label,
       dateDebut: this.formatDate(this.semestreData.date_debut), // 'YYYY-MM-DD'
@@ -119,45 +126,90 @@ export class SemestreFormationDirecteurComponent {
       formationId: this.formation.id // Changer `fk_form` en `formationId`
     };
   
-    // Mise à jour de l'ID dans l'objet semestreData
-    
-    console.log(payload)
-    this.http.setData(url,payload).subscribe(
-      
+    console.log(payload);
+    this.http.setData(url, payload).subscribe(
       (response) => {
-        console.log('Semestre ajoutée avec succès :', response);
-        
-        this.semestreData = { label: '',  date_debut: '',
+        console.log('Semestre ajouté avec succès :', response);
+  
+        // Alerte de succès SweetAlert
+        Swal.fire({
+          icon: 'success',
+          title: 'Semestre ajouté!',
+          text: 'Le semestre a été ajouté avec succès.',
+          confirmButtonColor: '#28a745',
+        });
+  
+        // Réinitialiser le formulaire
+        this.semestreData = {
+          label: '',
+          date_debut: '',
           date_fin: '',
-          fk_form: 0};// Réinitialiser le formulaire
-        this.ngOnInit()
-        this.cdr.detectChanges();
+          fk_form: 0,
+        };
+        this.ngOnInit(); // Réinitialiser les données
+        this.cdr.detectChanges(); // Mettre à jour la vue
       },
-    
       (error) => {
-        console.error('Erreur lors de l\'ajout de la semestre :', error);
+        console.error('Erreur lors de l\'ajout du semestre :', error);
+  
+        // Alerte d'erreur SweetAlert
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Une erreur est survenue lors de l\'ajout du semestre.',
+          confirmButtonColor: '#d33',
+        });
       }
     );
   }
-
  // Supprimer une formation par son ID
  deleteSemestre(id: number): void {
   const url = `/directeur/deleteSemestre/${id}`;
-  if (confirm('Êtes-vous sûr de vouloir supprimer cette semsetre ?')) {
-    this.http.deleteData(url).pipe(
-      catchError((error) => {
-        console.error('Erreur lors de la suppression de la formation :', error);
-        this.errorMessage = 'Erreur lors de la suppression de la formation.';
-        return of(null);
-      })
-    ).subscribe((response) => {
-      console.log('Formation supprimée avec succès.');
-      this.loadData(); // Recharger la liste après suppression
-      this.cdr.detectChanges();
-    });
-  }
-}
 
+  // Alerte de confirmation SweetAlert
+  Swal.fire({
+    title: 'Êtes-vous sûr ?',
+    text: 'Cette action est irréversible.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Oui, supprimer',
+    cancelButtonText: 'Annuler',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Supprimer le semestre si l'utilisateur confirme
+      this.http.deleteData(url).pipe(
+        catchError((error) => {
+          console.error('Erreur lors de la suppression du semestre :', error);
+
+          // Alerte d'erreur SweetAlert
+          Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: 'Une erreur est survenue lors de la suppression du semestre.',
+            confirmButtonColor: '#d33',
+          });
+
+          return of(null); // Continuer même en cas d'erreur
+        })
+      ).subscribe((response) => {
+        console.log('Semestre supprimé avec succès.');
+
+        // Alerte de succès SweetAlert
+        Swal.fire({
+          icon: 'success',
+          title: 'Supprimé!',
+          text: 'Le semestre a été supprimé avec succès.',
+          confirmButtonColor: '#28a745',
+        });
+
+        this.loadData(); // Recharger la liste après suppression
+        this.cdr.detectChanges(); // Mettre à jour la vue
+      });
+    }
+  });
+}
 editSemestreVisible: boolean = false; // Contrôle l'affichage du formulaire
  
 editSemesetre: any = {
@@ -193,38 +245,55 @@ editSemestre(selectedSemestre: any) {
 
 
 // Soumission du formulaire
-onSubmitEdit() {
+onSubmitEdit(): void {
   const url = `/directeur/updateSemestre/${this.editSemesetre.id}`; // Utiliser l'id dans l'URL
+
   console.log(
-    'Formation : ' + 
-    this.editSemesetre.label + 
-    ' - Date debut : ' + 
-    this.editSemesetre.date_debut+'dare fin '+this.editSemesetre.date_fin
+    'Formation : ' +
+    this.editSemesetre.label +
+    ' - Date début : ' +
+    this.editSemesetre.date_debut +
+    ' - Date fin : ' + this.editSemesetre.date_fin
   );
 
-    
-  this.editVF.dateDebut=this.editSemesetre.date_debut;
-  this.editVF.label=this.editSemesetre.label;
-  this.editVF.dateFin=this.editSemesetre.date_fin;
-  this.editVF.formationId=this.formation.id;
+  this.editVF.dateDebut = this.editSemesetre.date_debut;
+  this.editVF.label = this.editSemesetre.label;
+  this.editVF.dateFin = this.editSemesetre.date_fin;
+  this.editVF.formationId = this.formation.id;
+
   console.log('edit formation vf ' + this.editVF.label);
   console.log('edit formation vf ' + this.editVF.dateDebut);
   console.log('edit formation vf ' + this.editVF.dateFin);
   console.log('edit formation vf ' + this.editVF.formationId);
-  
-
 
   this.http.updateData(url, this.editVF).subscribe(
     (response) => {
       console.log('Formation mise à jour avec succès :', response);
+
+      // Alerte de succès SweetAlert
+      Swal.fire({
+        icon: 'success',
+        title: 'Mise à jour réussie!',
+        text: 'Le semestre a été mis à jour avec succès.',
+        confirmButtonColor: '#28a745',
+      });
+
       // Réinitialiser le formulaire
-      this.editSemesetre = { id: 0, label: '', date_debut: '',date_fin:'' };
-      this.editVF = { label: '',dateDebut: '',dateFin:'' ,formationId:0};
+      this.editSemesetre = { id: 0, label: '', date_debut: '', date_fin: '' };
+      this.editVF = { label: '', dateDebut: '', dateFin: '', formationId: 0 };
       this.ngOnInit(); // Réinitialiser les données
       this.cdr.detectChanges(); // Mettre à jour la vue
     },
     (error) => {
       console.error('Erreur lors de la mise à jour de la formation :', error);
+
+      // Alerte d'erreur SweetAlert
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: 'Une erreur est survenue lors de la mise à jour du semestre.',
+        confirmButtonColor: '#d33',
+      });
     }
   );
 }

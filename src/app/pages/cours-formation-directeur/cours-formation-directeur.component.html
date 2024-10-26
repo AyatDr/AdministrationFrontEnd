@@ -12,6 +12,14 @@
     <i class="fas fa-plus"></i> Ajouter Cours
   </button>
   </div>
+
+  <div *ngIf="cours.length === 0" 
+     class="alert alert-warning alert-dismissible fade show" 
+     role="alert" 
+     style="margin: 10px 0;">
+  <strong>Aucun cours trouvé !</strong> Veuillez ajouter un nouveau cours.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
   
   <div class="cours-container">
     <div class="cours-card" *ngFor="let cour of cours"  >

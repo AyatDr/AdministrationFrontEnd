@@ -6,6 +6,8 @@ import { HttpService } from 'src/app/services/http.service';
 import { FormsModule } from '@angular/forms';
 import { catchError, of } from 'rxjs';
 import bootstrap from 'bootstrap';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-formation-directeur',
@@ -101,41 +103,88 @@ export class FormationDirecteurComponent implements OnInit {
   // Fonction déclenchée lors de la soumission du formulaire
   onSubmit(): void {
     const url = '/directeur/addFormation'; // URL du backend Spring Boot
-    console.log('formation'+ this.formation.label+'description'+this.formation.description)
-    console.log(this.formation)
+    console.log('formation' + this.formation.label + 'description' + this.formation.description);
+    console.log(this.formation);
+  
     this.http.setData(url, JSON.stringify(this.formation)).subscribe(
-      
       (response) => {
         console.log('Formation ajoutée avec succès :', response);
-        this.formation = { label: '', description: '' };// Réinitialiser le formulaire
-        this.ngOnInit()
+  
+        // Alerte de succès SweetAlert
+        Swal.fire({
+          icon: 'success',
+          title: 'Formation ajoutée!',
+          text: 'La formation a été ajoutée avec succès.',
+          confirmButtonColor: '#28a745',
+        });
+  
+        // Réinitialiser le formulaire
+        this.formation = { label: '', description: '' };
+        this.ngOnInit();
         this.cdr.detectChanges();
       },
-    
       (error) => {
         console.error('Erreur lors de l\'ajout de la formation :', error);
+  
+        // Alerte d'erreur SweetAlert
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Une erreur est survenue lors de l\'ajout de la formation.',
+          confirmButtonColor: '#d33',
+        });
       }
     );
   }
+  
 
   // Supprimer une formation par son ID
   deleteFormation(id: number): void {
     const url = `/directeur/deleteFormation/${id}`;
-    if (confirm('Êtes-vous sûr de vouloir supprimer cette formation ?')) {
-      this.http.deleteData(url).pipe(
-        catchError((error) => {
-          console.error('Erreur lors de la suppression de la formation :', error);
-          this.errorMessage = 'Erreur lors de la suppression de la formation.';
-          return of(null);
-        })
-      ).subscribe((response) => {
-        console.log('Formation supprimée avec succès.');
-        this.loadData(); // Recharger la liste après suppression
-        this.cdr.detectChanges();
-      });
-    }
+  
+    // Alerte de confirmation avant suppression
+    Swal.fire({
+      title: 'Êtes-vous sûr ?',
+      text: 'Cette action est irréversible.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Oui, supprimer',
+      cancelButtonText: 'Annuler',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Si l'utilisateur confirme, effectuer la suppression
+        this.http.deleteData(url).pipe(
+          catchError((error) => {
+            console.error('Erreur lors de la suppression de la formation :', error);
+  
+            // Alerte d'erreur SweetAlert
+            Swal.fire({
+              icon: 'error',
+              title: 'Erreur',
+              text: 'Une erreur est survenue lors de la suppression de la formation.',
+            });
+  
+            return of(null); // Continuer même en cas d'erreur
+          })
+        ).subscribe((response) => {
+          console.log('Formation supprimée avec succès.');
+  
+          // Alerte de succès SweetAlert
+          Swal.fire({
+            icon: 'success',
+            title: 'Supprimé!',
+            text: 'La formation a été supprimée avec succès.',
+            confirmButtonColor: '#28a745',
+          });
+  
+          this.loadData(); // Recharger la liste après suppression
+          this.cdr.detectChanges();
+        });
+      }
+    });
   }
-
   editFormationVisible: boolean = false; // Contrôle l'affichage du formulaire
  
   editformation: any = {
@@ -158,34 +207,49 @@ export class FormationDirecteurComponent implements OnInit {
   }
   
   // Soumission du formulaire
-  onSubmitEdit() {
+  onSubmitEdit(): void {
     const url = `/directeur/updateFormation/${this.editformation.id}`; // Utiliser l'id dans l'URL
+  
     console.log(
-      'Formation : ' + 
-      this.editformation.label + 
-      ' - Description : ' + 
+      'Formation : ' +
+      this.editformation.label +
+      ' - Description : ' +
       this.editformation.description
     );
-
-      
-    this.editVF.description=this.editformation.description;
-    this.editVF.label=this.editformation.label;
+  
+    this.editVF.description = this.editformation.description;
+    this.editVF.label = this.editformation.label;
     console.log('edit formation vf ' + this.editVF.description);
     console.log('edit formation vf ' + this.editVF.label);
-    
-
   
     this.http.updateData(url, this.editVF).subscribe(
       (response) => {
         console.log('Formation mise à jour avec succès :', response);
+  
+        // Alerte de succès SweetAlert
+        Swal.fire({
+          icon: 'success',
+          title: 'Mise à jour réussie!',
+          text: 'La formation a été mise à jour avec succès.',
+          confirmButtonColor: '#28a745',
+        });
+  
         // Réinitialiser le formulaire
         this.editformation = { id: 0, label: '', description: '' };
-        this.editVF = {  label: '', description: '' };
+        this.editVF = { label: '', description: '' };
         this.ngOnInit(); // Réinitialiser les données
         this.cdr.detectChanges(); // Mettre à jour la vue
       },
       (error) => {
         console.error('Erreur lors de la mise à jour de la formation :', error);
+  
+        // Alerte d'erreur SweetAlert
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Une erreur est survenue lors de la mise à jour de la formation.',
+          confirmButtonColor: '#d33',
+        });
       }
     );
   }

@@ -13,6 +13,13 @@
 
   </div>
 
+  <div *ngIf="data.length === 0" 
+     class="alert alert-warning alert-dismissible fade show" 
+     role="alert" 
+     style="margin: 10px 0;">
+  <strong>Aucune formation trouvée!</strong>  Veuillez ajouter une nouvelle formation.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
   <div class="card-container">
     <div 
       class="card" 
@@ -33,11 +40,21 @@
         </div>
       </div>
   
-      <div class="card-body"  (click)="goToSemestersPage(formation)">
+      <div class="card-body"  >
         <div class="card-title">
-          <h4>{{ formation.label }}</h4>
-        </div>
-    <p> {{ formation.description}}</p>
+          <h4 class="card-title" 
+          style="margin-bottom: 10px; font-weight: bold; font-size: 18px; 
+                 color: #000; text-transform: uppercase;">
+        {{ formation.label }}
+      </h4>
+      
+      <p *ngIf="formation.description" 
+         style="color: rgb(85, 85, 85); font-size: 14px; line-height: 1.5; 
+                font-style: italic; display: flex; align-items: center; gap: 8px;">
+        <i class="fa fa-info-circle" style="color: #007bff;"></i> 
+        {{ formation.description }}
+      </p>
+      
       </div>
   
       <div class="card-footer">

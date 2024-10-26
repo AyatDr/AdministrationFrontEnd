@@ -12,40 +12,58 @@
     <i class="fas fa-plus"></i> Ajouter Matière
   </button>
   </div>
+
+
+  <div *ngIf="matieres.length === 0" 
+     class="alert alert-warning alert-dismissible fade show" 
+     role="alert"
+     style="margin: 10px 0;">
+  <strong>Aucune matière trouvée!</strong> Veuillez ajouter une nouvelle matière.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
   
-  <div class="matiere-container">
-    <div class="matiere-card" *ngFor="let matiere of matieres " >
-      <div class="matiere-header" (click)="goToCoursPage(matiere)">
-        <i class="fa fa-book-open matiere-icon"></i>
-        <h3 class="matiere-title">{{ matiere.label }}</h3>
-      </div>
-  
-      <div class="matiere-description" (click)="goToCoursPage(matiere)">
-        {{ matiere.description }}
-      </div>
-  
-      <div class="matiere-footer">
-        <i (click)="deleteMatiere(matiere.id)"
-          class="fa fa-trash delete-icon"
-          title="Supprimer"
-          [ngStyle]="{ color: hoveredDelete ? 'rgb(180, 50, 50)' : 'rgb(230, 78, 78)' }"
-          (mouseenter)="hoveredDelete = true"
-          (mouseleave)="hoveredDelete = false"
-        ></i>
-        <i
-     
-        class="fa fa-edit edit-icon"
-        title="Modifier"
-        [ngStyle]="{ color: hoveredEdit ? 'rgb(0, 128, 0)' : 'rgb(34, 139, 34)' }"
-        (mouseenter)="hoveredEdit = true"
-        (mouseleave)="hoveredEdit = false"
-        (click)="editmatiere(matiere)"
-        data-bs-toggle="modal" 
-        data-bs-target="#editMatiereModal"
-      ></i>
-      </div>
+<div class="matiere-container">
+  <div class="matiere-card" *ngFor="let matiere of matieres">
+    <div class="matiere-header" (click)="goToCoursPage(matiere)">
+      <i class="fa fa-book-open matiere-icon" style="font-size: 24px; color: orange;"></i>
+      <h3 class="matiere-title" style="margin-left: 10px;">{{ matiere.label }}</h3>
+    </div>
+
+    <!-- Professeur avec icône -->
+    <div class="matiere-professeur" style="margin: 5px 0; font-weight: bold; color: #555;">
+      <i class="fa fa-user" style="margin-right: 5px;color: #007bff;"></i>
+      {{ matiere.professeur?.nom }} {{ matiere.professeur?.prenom }}
+    </div>
+
+    <!-- Description avec icône -->
+    <div class="matiere-description" (click)="goToCoursPage(matiere)">
+    
+      <p  style="color: rgb(85, 85, 85); font-size: 14px; line-height: 1.5; 
+                font-style: italic; display: flex; align-items: center; gap: 8px;">  <i class="fa fa-info-circle" style="color: #007bff; margin-right: 5px;"></i>{{ matiere.description }}</p>
+    </div>
+
+    <div class="matiere-footer">
+      <i (click)="deleteMatiere(matiere.id)"
+         class="fa fa-trash delete-icon"
+         title="Supprimer"
+         [ngStyle]="{ color: hoveredDelete ? 'rgb(180, 50, 50)' : 'rgb(230, 78, 78)' }"
+         (mouseenter)="hoveredDelete = true"
+         (mouseleave)="hoveredDelete = false">
+      </i>
+
+      <i class="fa fa-edit edit-icon"
+         title="Modifier"
+         [ngStyle]="{ color: hoveredEdit ? 'rgb(0, 128, 0)' : 'rgb(34, 139, 34)' }"
+         (mouseenter)="hoveredEdit = true"
+         (mouseleave)="hoveredEdit = false"
+         (click)="editmatiere(matiere)"
+         data-bs-toggle="modal" 
+         data-bs-target="#editMatiereModal">
+      </i>
     </div>
   </div>
+</div>
+
   
 
   <div class="modal fade" id="addMatiereModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">

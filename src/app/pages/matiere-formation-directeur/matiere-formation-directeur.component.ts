@@ -5,6 +5,7 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
 import { FormsModule } from '@angular/forms';
 import { catchError, of } from 'rxjs';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-matiere-formation-directeur',
   standalone: true,
@@ -138,35 +139,58 @@ export class MatiereFormationDirecteurComponent {
       return `${year}-${month}-${day}`;
     }
   
-   onSubmit(): void {
+    onSubmit(): void {
       const url = '/directeur/addMatiere'; // URL du backend Spring Boot
-//const parsedId = parseInt(this.MatiereData.moduleId as any, 10);
       const profId = parseInt(this.MatiereData.professeurId as any, 10);
-     
-      //this.semestreData.fk_form = parsedId;
+    
+      if (isNaN(profId)) {
+        console.error('ID du professeur invalide.');
+    
+        // Alerte d'erreur SweetAlert
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Veuillez sélectionner un professeur valide.',
+          confirmButtonColor: '#d33',
+        });
+        return;
+      }
+    
       const payload = {
         label: this.MatiereData.label,
-        description:this.MatiereData.description,
-        moduleId: this.module.id, // Changer `fk_form` en `formationId`
-        professeurId: profId
+        description: this.MatiereData.description,
+        moduleId: this.module.id,
+        professeurId: profId,
       };
     
-      // Mise à jour de l'ID dans l'objet semestreData
-      
-      console.log(payload)
-      this.http.setData(url,payload).subscribe(
-        
+      console.log(payload);
+      this.http.setData(url, payload).subscribe(
         (response) => {
-          console.log('Semestre ajoutée avec succès :', response);
-          
-          this.MatiereData = { label: '',  description:'',
-moduleId: 0,professeurId:0};// Réinitialiser le formulaire
-          this.ngOnInit()
-          this.cdr.detectChanges();
+          console.log('Matière ajoutée avec succès :', response);
+    
+          // Alerte de succès SweetAlert
+          Swal.fire({
+            icon: 'success',
+            title: 'Matière ajoutée!',
+            text: 'La matière a été ajoutée avec succès.',
+            confirmButtonColor: '#28a745',
+          });
+    
+          // Réinitialiser le formulaire
+          this.MatiereData = { label: '', description: '', moduleId: 0, professeurId: 0 };
+          this.ngOnInit(); // Réinitialiser les données
+          this.cdr.detectChanges(); // Mettre à jour la vue
         },
-      
         (error) => {
-          console.error('Erreur lors de l\'ajout de la semestre :', error);
+          console.error('Erreur lors de l\'ajout de la matière :', error);
+    
+          // Alerte d'erreur SweetAlert
+          Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: 'Une erreur est survenue lors de l\'ajout de la matière.',
+            confirmButtonColor: '#d33',
+          });
         }
       );
     }
@@ -190,22 +214,54 @@ moduleId: 0,professeurId:0};// Réinitialiser le formulaire
     }
 
     // Supprimer une module par son ID
-deleteMatiere(id: number): void {
-  const url = `/directeur/deleteMatiere/${id}`;
-  if (confirm('Êtes-vous sûr de vouloir supprimer cette matiere ?')) {
-    this.http.deleteData(url).pipe(
-      catchError((error) => {
-        console.error('Erreur lors de la suppression de la formation :', error);
-        this.errorMessage = 'Erreur lors de la suppression de la formation.';
-        return of(null);
-      })
-    ).subscribe((response) => {
-      console.log('Formation supprimée avec succès.');
-      this.loadData(); // Recharger la liste après suppression
-      this.cdr.detectChanges();
-    });
-  }
-}
+    deleteMatiere(id: number): void {
+      const url = `/directeur/deleteMatiere/${id}`;
+    
+      // Alerte de confirmation SweetAlert
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        text: 'Cette action est irréversible.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Oui, supprimer',
+        cancelButtonText: 'Annuler',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Supprimer la matière si l'utilisateur confirme
+          this.http.deleteData(url).pipe(
+            catchError((error) => {
+              console.error('Erreur lors de la suppression de la matière :', error);
+    
+              // Alerte d'erreur SweetAlert
+              Swal.fire({
+                icon: 'error',
+                title: 'Erreur',
+                text: 'Une erreur est survenue lors de la suppression de la matière.',
+                confirmButtonColor: '#d33',
+              });
+    
+              return of(null); // Continuer même en cas d'erreur
+            })
+          ).subscribe((response) => {
+            console.log('Matière supprimée avec succès.');
+    
+            // Alerte de succès SweetAlert
+            Swal.fire({
+              icon: 'success',
+              title: 'Supprimé!',
+              text: 'La matière a été supprimée avec succès.',
+              confirmButtonColor: '#28a745',
+            });
+    
+            this.loadData(); // Recharger la liste après suppression
+            this.cdr.detectChanges(); // Mettre à jour la vue
+          });
+        }
+      });
+    }
+    
   
 
 
@@ -234,38 +290,58 @@ editmatiere(selectedMatiere: any) {
 
 
 // Soumission du formulaire
-onSubmitEdit() {
+onSubmitEdit(): void {
   const url = `/directeur/updateMatiere/${this.editMatiere.id}`; // Utiliser l'id dans l'URL
+
   console.log(
     'Matiere : ' + 
-    this.editMatiere.label +'desc : ' + 
-    this.editMatiere.description +'prof : ' + 
-    this.editMatiere.professeurId +'module : ' + 
-    this.editMatiere.moduleId
+    this.editMatiere.label + 
+    ' | Description : ' + this.editMatiere.description + 
+    ' | Prof : ' + this.editMatiere.professeurId + 
+    ' | Module : ' + this.editMatiere.moduleId
   );
-  this.editVF.label=this.editMatiere.label;
-  this.editVF.description=this.editMatiere.description;
-  this.editVF.professeurId=parseInt(this.editMatiere.professeurId);
-  this.editVF.moduleId=this.module.id;
-  console.log('edit matire vf ' + this.editVF.label);
-  console.log('edit matier vf ' + this.editVF.professeurId);
-  
 
+  this.editVF.label = this.editMatiere.label;
+  this.editVF.description = this.editMatiere.description;
+  this.editVF.professeurId = parseInt(this.editMatiere.professeurId, 10);
+  this.editVF.moduleId = this.module.id;
 
+  console.log('Edit matiere VF : ' + this.editVF.label);
+  console.log('Edit matiere VF ProfesseurId : ' + this.editVF.professeurId);
+
+  // Envoi de la requête avec SweetAlert en cas de succès ou d'erreur
   this.http.updateData(url, this.editVF).subscribe(
     (response) => {
-      console.log('Formation mise à jour avec succès :', response);
+      console.log('Matière mise à jour avec succès :', response);
+
+      // Alerte de succès SweetAlert
+      Swal.fire({
+        icon: 'success',
+        title: 'Mise à jour réussie!',
+        text: 'La matière a été mise à jour avec succès.',
+        confirmButtonColor: '#28a745',
+      });
+
       // Réinitialiser le formulaire
-      this.editMatiere = { id: 0, label: ''};
-      this.editVF = { label: '',moduleId:0,description:'',professeurId:0};
+      this.editMatiere = { id: 0, label: '' };
+      this.editVF = { label: '', moduleId: 0, description: '', professeurId: 0 };
       this.ngOnInit(); // Réinitialiser les données
       this.cdr.detectChanges(); // Mettre à jour la vue
     },
     (error) => {
-      console.error('Erreur lors de la mise à jour de la formation :', error);
+      console.error('Erreur lors de la mise à jour de la matière :', error);
+
+      // Alerte d'erreur SweetAlert
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: 'Une erreur est survenue lors de la mise à jour de la matière.',
+        confirmButtonColor: '#d33',
+      });
     }
   );
 }
+
 
 
 

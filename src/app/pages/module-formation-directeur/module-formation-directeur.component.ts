@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpService } from 'src/app/services/http.service';
 import { FormsModule } from '@angular/forms';
 import { catchError, of } from 'rxjs';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-module-formation-directeur',
   standalone: true,
@@ -129,36 +130,56 @@ export class ModuleFormationDirecteurComponent {
     return `${year}-${month}-${day}`;
   }
 
- onSubmit(): void {
+  onSubmit(): void {
     const url = '/directeur/addModule'; // URL du backend Spring Boot
     const parsedId = parseInt(this.ModuleData.fk_sem as any, 10);
   
     if (isNaN(parsedId)) {
-      console.error('ID de formation invalide.');
+      console.error('ID de semestre invalide.');
+      
+      // Alerte d'erreur SweetAlert
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: 'L\'ID du semestre est invalide.',
+        confirmButtonColor: '#d33',
+      });
       return;
     }
-    //this.semestreData.fk_form = parsedId;
+  
     const payload = {
       label: this.ModuleData.label,
-      semestreId: this.semestre.id // Changer `fk_form` en `formationId`
+      semestreId: this.semestre.id, // Changer `fk_form` en `formationId`
     };
   
-    // Mise à jour de l'ID dans l'objet semestreData
-    
-    console.log(payload)
-    this.http.setData(url,payload).subscribe(
-      
+    console.log(payload);
+    this.http.setData(url, payload).subscribe(
       (response) => {
-        console.log('Semestre ajoutée avec succès :', response);
-        
-        this.ModuleData = { label: '',  
-          fk_sem: 0};// Réinitialiser le formulaire
-        this.ngOnInit()
-        this.cdr.detectChanges();
+        console.log('Module ajouté avec succès :', response);
+  
+        // Alerte de succès SweetAlert
+        Swal.fire({
+          icon: 'success',
+          title: 'Module ajouté!',
+          text: 'Le module a été ajouté avec succès.',
+          confirmButtonColor: '#28a745',
+        });
+  
+        // Réinitialiser le formulaire
+        this.ModuleData = { label: '', fk_sem: 0 };
+        this.ngOnInit(); // Réinitialiser les données
+        this.cdr.detectChanges(); // Mettre à jour la vue
       },
-    
       (error) => {
-        console.error('Erreur lors de l\'ajout de la semestre :', error);
+        console.error('Erreur lors de l\'ajout du module :', error);
+  
+        // Alerte d'erreur SweetAlert
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Une erreur est survenue lors de l\'ajout du module.',
+          confirmButtonColor: '#d33',
+        });
       }
     );
   }
@@ -166,19 +187,50 @@ export class ModuleFormationDirecteurComponent {
 // Supprimer une module par son ID
 deleteModule(id: number): void {
   const url = `/directeur/deleteModule/${id}`;
-  if (confirm('Êtes-vous sûr de vouloir supprimer cette Module?')) {
-    this.http.deleteData(url).pipe(
-      catchError((error) => {
-        console.error('Erreur lors de la suppression de la formation :', error);
-        this.errorMessage = 'Erreur lors de la suppression de la formation.';
-        return of(null);
-      })
-    ).subscribe((response) => {
-      console.log('Formation supprimée avec succès.');
-      this.loadData(); // Recharger la liste après suppression
-      this.cdr.detectChanges();
-    });
-  }
+
+  // Alerte de confirmation SweetAlert
+  Swal.fire({
+    title: 'Êtes-vous sûr ?',
+    text: 'Cette action est irréversible.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Oui, supprimer',
+    cancelButtonText: 'Annuler',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Supprimer le module si l'utilisateur confirme
+      this.http.deleteData(url).pipe(
+        catchError((error) => {
+          console.error('Erreur lors de la suppression du module :', error);
+
+          // Alerte d'erreur SweetAlert
+          Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: 'Une erreur est survenue lors de la suppression du module.',
+            confirmButtonColor: '#d33',
+          });
+
+          return of(null); // Continuer même en cas d'erreur
+        })
+      ).subscribe((response) => {
+        console.log('Module supprimé avec succès.');
+
+        // Alerte de succès SweetAlert
+        Swal.fire({
+          icon: 'success',
+          title: 'Supprimé!',
+          text: 'Le module a été supprimé avec succès.',
+          confirmButtonColor: '#28a745',
+        });
+
+        this.loadData(); // Recharger la liste après suppression
+        this.cdr.detectChanges(); // Mettre à jour la vue
+      });
+    }
+  });
 }
 
 
@@ -208,30 +260,45 @@ editmodule(selectedModule: any) {
 
 
 // Soumission du formulaire
-onSubmitEdit() {
+onSubmitEdit(): void {
   const url = `/directeur/updateModule/${this.editModule.id}`; // Utiliser l'id dans l'URL
-  console.log(
-    'Module : ' + 
-    this.editModule.label 
-  );
-  this.editVF.label=this.editModule.label;
-  this.editVF.semestreId=this.semestre.id;
+
+  console.log('Module : ' + this.editModule.label);
+
+  this.editVF.label = this.editModule.label;
+  this.editVF.semestreId = this.semestre.id;
+
   console.log('edit module vf ' + this.editVF.label);
   console.log('edit module vf ' + this.editVF.semestreId);
-  
-
 
   this.http.updateData(url, this.editVF).subscribe(
     (response) => {
-      console.log('Formation mise à jour avec succès :', response);
+      console.log('Module mis à jour avec succès :', response);
+
+      // Alerte de succès SweetAlert
+      Swal.fire({
+        icon: 'success',
+        title: 'Mise à jour réussie!',
+        text: 'Le module a été mis à jour avec succès.',
+        confirmButtonColor: '#28a745',
+      });
+
       // Réinitialiser le formulaire
-      this.editModule = { id: 0, label: ''};
-      this.editVF = { label: '',semestreId:0};
+      this.editModule = { id: 0, label: '' };
+      this.editVF = { label: '', semestreId: 0 };
       this.ngOnInit(); // Réinitialiser les données
       this.cdr.detectChanges(); // Mettre à jour la vue
     },
     (error) => {
-      console.error('Erreur lors de la mise à jour de la formation :', error);
+      console.error('Erreur lors de la mise à jour du module :', error);
+
+      // Alerte d'erreur SweetAlert
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: 'Une erreur est survenue lors de la mise à jour du module.',
+        confirmButtonColor: '#d33',
+      });
     }
   );
 }
