@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { FormationProfesseurComponent } from './formation-professeur.component';
+import { ModuleProfesseurComponent } from './module-professeur.component';
 
 @NgModule({
   declarations: [],
@@ -12,9 +12,9 @@ import { FormationProfesseurComponent } from './formation-professeur.component';
     RouterModule.forChild([
       {
         path: '',
-        component: FormationProfesseurComponent,
+        component: ModuleProfesseurComponent,
       }
     ]),
   ]
 })
-export class FormationProfesseurModule { }
+export class ModuleProfesseurModule { }

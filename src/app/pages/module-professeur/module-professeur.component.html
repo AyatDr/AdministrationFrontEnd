@@ -1,0 +1,41 @@
+<button (click)="navigateToSemestres()" class="retour-btn" type="button">Retour</button>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Liste des Modules Du Professeur {{ authProf.nom }} {{ authProf.prenom }} Pour le Semestre : {{ semestreLabel }}</h2>
+</div>
+
+<div class="card-container">
+
+    <div class="card" *ngFor="let moduleItem of data">
+
+        <div
+            class="card-header"
+            [ngStyle]="{ 'background-image': 'url(' + moduleItem.image + ')' }"
+            >
+        
+            <div 
+            class="profile-circle" 
+            [ngStyle]="{ 'background-color': moduleItem.backgroundColor }"
+            >
+                {{ moduleItem.initial }}
+            </div>
+      </div>
+
+      <div class="card-body">
+        <div class="card-title">
+            <h3>{{ moduleItem.label }}</h3>
+            <p>{{ authProf.nom }} {{ authProf.prenom }}</p>
+        </div>
+      </div>
+  
+      <div class="card-footer">
+      
+        <!-- View Details Icon -->
+        <i (click)="navigateToMatieres(moduleItem.id)" class="fa fa-eye" title="Voir les détails" 
+           style="color: rgb(10, 64, 134); font-size: 20px; cursor: pointer;"></i>
+      </div>
+      
+    </div>
+
+</div>
+  

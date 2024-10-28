@@ -1,0 +1,40 @@
+<button (click)="navigateToModules()" class="retour-btn" type="button">Retour</button>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Liste des Matieres Du Professeur {{ authProf.nom }} {{ authProf.prenom }} Pour le Module : {{ moduleLabel }}</h2>
+</div>
+<div class="card-container">
+
+    <div class="card" *ngFor="let matiere of data">
+
+        <div
+            class="card-header"
+            [ngStyle]="{ 'background-image': 'url(' + matiere.image + ')' }"
+            >
+        
+            <div 
+            class="profile-circle" 
+            [ngStyle]="{ 'background-color': matiere.backgroundColor }"
+            >
+                {{ matiere.initial }}
+            </div>
+      </div>
+
+      <div class="card-body">
+        <div class="card-title">
+            <h3>{{ matiere.label }}</h3>
+            <p>{{ authProf.nom }} {{ authProf.prenom }}</p>
+        </div>
+      </div>
+  
+      <div class="card-footer">
+      
+        <i (click)="navigateToNotes(matiere.id)" style="color: rgb(10, 64, 134); font-size: 20px; cursor: pointer;" class="fa-solid fa-user-graduate"></i>
+        <i (click)="navigateToCours(matiere.id)" class="fa fa-eye" title="Voir les détails" 
+           style="color: rgb(10, 64, 134); font-size: 20px; cursor: pointer;"></i>
+      </div>
+      
+    </div>
+
+</div>
+  

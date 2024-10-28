@@ -73,6 +73,7 @@ const Routing: Routes = [
   },
   {
 
+
     path: 'apps/ProfesseurDirecteur',
     loadChildren: () => import('./professeur-directeur/professeur-directeur.module').then((m) => m.ProfesseurDirecteurModule),
   },
@@ -95,7 +96,20 @@ const Routing: Routes = [
  {
   path: 'apps/FormationCoursDetailDirecteur',
   loadChildren: () => import('./cours-details-directeur/cours-details-directeur.module').then((m) => m.CoursDetailsDirecteurModule),
- }
+ },
+
+{
+    path: 'prof/formation/:id/semestres/list',
+    loadChildren: () => import('./semestre-professeur/semestre-professeur.module').then((m) => m.SemestreProfesseurModule),
+  },
+  {
+    path: 'prof/formation/:formation/semestre/:semestre/modules/list',
+    loadChildren: () => import('./module-professeur/module-professeur.module').then((m) => m.ModuleProfesseurModule),
+  },
+  {
+    path: 'prof/formation/:formation/semestre/:semestre/module/:module/matieres/list',
+    loadChildren: () => import('./matiere-professeur/matiere-professeur.module').then((m) => m.MatiereProfesseurModule),
+  },     
 
 ];
 

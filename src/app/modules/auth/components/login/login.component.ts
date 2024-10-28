@@ -1,10 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { Observable, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { AuthModel } from '../../models/auth.model';
 import { AuthService } from '../../services/auth.service';
+
+import { environment } from 'src/environments/environment';
+
+
 
 @Component({
   selector: 'app-login',
@@ -76,6 +81,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     const loginSubscr = this.authService
       .login(this.f.email.value, this.f.password.value)
       .pipe(first())
+
       .subscribe((auth: AuthModel | undefined) => {
         console.log('Authenticated user:', auth?.user);
   
@@ -83,6 +89,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.router.navigate(['dashboard']);
         } else if (auth?.permissions === 'prof') {
           this.router.navigate(['prof/formations/list']);
+
         } else {
           this.hasError = true;
         }
@@ -91,6 +98,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.unsubscribe.push(loginSubscr);
   }
   
+
 
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());

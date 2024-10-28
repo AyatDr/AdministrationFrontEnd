@@ -1,0 +1,43 @@
+<button (click)="navigateToFormations()" class="retour-btn" type="button">Retour</button>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Liste des Semestres Du Professeur {{ authProf.nom }} {{ authProf.prenom }} Pour la formation : {{ formationLabel }}</h2>
+</div>
+
+<div class="card-container">
+
+    <div class="card" *ngFor="let semestre of data">
+
+        <div
+            class="card-header"
+            [ngStyle]="{ 'background-image': 'url(' + semestre.image + ')' }"
+            >
+        
+            <div 
+            class="profile-circle" 
+            [ngStyle]="{ 'background-color': semestre.backgroundColor }"
+            >
+                {{ semestre.initial }}
+            </div>
+      </div>
+
+      <div class="card-body">
+        <div class="card-title">
+            <h3>{{ semestre.label }}</h3>
+            <p>Date Debut : {{semestre.dateDebut}}</p>
+            <p>Date Fin : {{semestre.dateFin}}</p>
+            <p>{{ authProf.nom }} {{ authProf.prenom }}</p>
+        </div>
+      </div>
+  
+      <div class="card-footer">
+      
+        <!-- View Details Icon -->
+        <i (click)="navigateToModules(semestre.id)" class="fa fa-eye" title="Voir les détails" 
+           style="color: rgb(10, 64, 134); font-size: 20px; cursor: pointer;"></i>
+      </div>
+      
+    </div>
+
+</div>
+  
