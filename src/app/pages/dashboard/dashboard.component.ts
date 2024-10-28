@@ -26,8 +26,8 @@ export class DashboardComponent implements OnInit {
    this.GetEtudiants()
    this.GetProfesseurs()
    this.GetFormations()
+   this.GetFormationsSemestre()
 
-  
   }
 
 
@@ -122,6 +122,9 @@ export class DashboardComponent implements OnInit {
  
        // Créez le graphique après récupération des données
        this.createChart(labels, dataPoints);
+
+  
+
       this.cdr.detectChanges()
       },
       (error) => {
@@ -131,6 +134,30 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+
+  formationSemestre : any[] = []
+
+  GetFormationsSemestre(): void {
+    // Charger les étudiants
+    this.http.getDataAuth('/directeur/formation/list').subscribe(
+      (data) => {
+        console.log('GetFormations reçus du backend:', data);
+        this.formationSemestre = data;
+   
+     // Ensure proper mapping of labels and data points
+     const formationLabels = this.formations.map((f: { label: any; }) => f.label || 'Inconnu'); // Default to 'Inconnu' if label is missing
+     const semesterCounts = this.formations.map((f: { semestres: string | any[]; }) => f.semestres ? f.semestres.length : 0);
+       // Create the bar chart with the processed data
+       this.createBarChart(formationLabels, semesterCounts);
+
+      this.cdr.detectChanges()
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des étudiants:', error);
+        this.errorMessage = 'Erreur de récupération des étudiants';
+      }
+    );
+  }
 
  
 
@@ -157,7 +184,7 @@ export class DashboardComponent implements OnInit {
             'rgba(255, 193, 7)',    // Jaune
             'rgba(0, 0, 0)',        // Noir
             'rgba(10, 64, 134)',    // Bleu ciel
-            'rgba(255, 99, 132)',   // Rouge
+            'rgba(165, 42, 42, 1)',   // Rouge
             'rgba(75, 192, 192)',   // Vert
             'rgba(153, 102, 255)',  // Violet
           ],
@@ -165,7 +192,7 @@ export class DashboardComponent implements OnInit {
             'rgba(255, 193, 7)',    // Jaune
             'rgba(0, 0, 0)',        // Noir
             'rgba(10, 64, 134)',    // Bleu ciel
-            'rgba(255, 99, 132)',   // Rouge
+            'rgba(165, 42, 42, 1)',   // Rouge
             'rgba(75, 192, 192)',   // Vert
             'rgba(153, 102, 255)',  // Violet
           ],
@@ -173,7 +200,7 @@ export class DashboardComponent implements OnInit {
             'rgba(255, 193, 7)',
             'rgba(0, 0, 0)',
             'rgba(10, 64, 134)',
-            'rgba(255, 99, 132)',
+            'rgba(165, 42, 42, 1)',
             'rgba(75, 192, 192)',
             'rgba(153, 102, 255)'
           ]
@@ -219,8 +246,90 @@ export class DashboardComponent implements OnInit {
     });
   }
   
+  chart2: any;
+  // Function to create a bar chart for semesters per formation
+  createBarChart(labels: string[], dataPoints: number[]): void {
+    const ctx = document.getElementById('barChart') as HTMLCanvasElement;
+  
+    if (this.chart2) {
+      this.chart2.destroy();
+    }
+  
+    this.chart2 = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          data: dataPoints,
+          backgroundColor: [
+            'rgba(255, 193, 7)',    // Jaune
+            'rgba(0, 0, 0)',        // Noir
+            'rgba(10, 64, 134)',    // Bleu ciel
+            'rgba(165, 42, 42, 1)',   // Rouge
+            'rgba(75, 192, 192)',   // Vert
+            'rgba(153, 102, 255)',  // Violet
+          ],
+          borderColor: [
+            'rgba(255, 193, 7)',    // Jaune
+            'rgba(0, 0, 0)',        // Noir
+            'rgba(10, 64, 134)',    // Bleu ciel
+            'rgba(165, 42, 42, 1)',   // Rouge
+            'rgba(75, 192, 192)',   // Vert
+            'rgba(153, 102, 255)',  // Violet
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false // Disable the legend
+          },
+          title: {
+            display: true,
+            text: 'Nombre de Semestres par Formation',
+            font: {
+              size: 16,
+              weight: 'bold'
+            },
+            padding: {
+              top: 10,
+              bottom: 10
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1,
+              callback: function (value) {
+                return Number.isInteger(value) ? value : null;
+              }
+            },
+            title: {
+              display: true,
+              text: 'Nombre de Semestres',
+              font: {
+                size: 14
+              }
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Formations',
+              font: {
+                size: 14
+              }
+            }
+          }
+        }
+      }
+    });
+  }
   
   
-}
 
-  
+}

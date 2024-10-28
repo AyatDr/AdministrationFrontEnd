@@ -24,25 +24,69 @@ export class ProfesseurDirecteurComponent {
 
   ngOnInit(): void {
     this.loadData();
+    this.loadFormations()
   }
 
 
- loadData(): void {
-    
+  professeurs: any[] = [];
+  formations: any[] = [];
+
+
+  loadData(): void {
     this.http.getDataAuth('/professeur/list').subscribe(
       (response) => {
-        console.log('Données reçues du backend:', response);
-
-        // On stocke l'objet entier (sans transformation partielle)
-        this.data = response
-
+        console.log('Professeurs reçus du backend:', response);
+        this.professeurs = response;
+        this.assignMatiersToProfesseurs(); // Assign subjects after loading professors
         this.cdr.detectChanges();
       },
       (error) => {
-        console.error('Erreur lors de la récupération des données:', error);
-        this.errorMessage = 'Erreur de récupération des données';
+        console.error('Erreur lors de la récupération des professeurs:', error);
+        this.errorMessage = 'Erreur de récupération des professeurs';
       }
     );
+  }
+  
+  loadFormations(): void {
+    this.http.getDataAuth('/directeur/formation/list').subscribe(
+      (response) => {
+        console.log('Formations reçues du backend:', response);
+        this.formations = response;
+        this.assignMatiersToProfesseurs(); // Assign subjects after loading formations
+        this.cdr.detectChanges();
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des formations:', error);
+        this.errorMessage = 'Erreur de récupération des formations';
+      }
+    );
+  }
+  
+  assignMatiersToProfesseurs(): void {
+    // Check if both professors and formations are loaded
+    if (this.professeurs.length === 0 || this.formations.length === 0) return;
+  
+    this.professeurs.forEach((professeur) => {
+      // Collect all the subjects (matières) taught by this professor
+      const matieres: any[] = [];
+  
+      this.formations.forEach((formation) => {
+        formation.semestres.forEach((semestre: any) => {
+          semestre.modules.forEach((module: any) => {
+            module.matieres.forEach((matiere: any) => {
+              if (matiere.professeur.id === professeur.id) {
+                matieres.push(matiere);
+              }
+            });
+          });
+        });
+      });
+  
+      // Assign the collected subjects to the professor
+      professeur.matieres = matieres;
+    });
+  
+    console.log('Professeurs avec matières assignées:', this.professeurs);
   }
 
    // Fonction pour générer une couleur aléatoire

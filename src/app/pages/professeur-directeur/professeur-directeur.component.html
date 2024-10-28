@@ -22,7 +22,7 @@
             </tr>
           </thead>
       <tbody>
-        <tr *ngFor="let professeur of data">
+        <tr *ngFor="let professeur of professeurs">
             <td class="text-center">
                 <div class="circle" [ngStyle]="{'background-color': getRandomColor()}">
                   {{ professeur.nom[0] + professeur.prenom[0] | uppercase }}
