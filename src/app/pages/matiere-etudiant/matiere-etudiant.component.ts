@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-matiere-etudiant',
@@ -22,8 +24,10 @@ export class MatiereEtudiantComponent {
   semestre: any;
   formation: any;
   professeurs: any[] = [];
-
-  constructor(private route: ActivatedRoute, private router: Router,private http: HttpService,private cdr: ChangeDetectorRef) {}
+  auth: any;
+  constructor( private authService: AuthService,private route: ActivatedRoute, private router: Router,private http: HttpService,private cdr: ChangeDetectorRef) {
+    this.auth = this.authService.getAuthFromLocalStorage();
+  }
 
   ngOnInit(): void {
     console.log('Initialisation du composant ModuleFormationDirecteurComponent');
@@ -148,8 +152,32 @@ export class MatiereEtudiantComponent {
   
 
 
-
-
+    voirNote(matiereId: number): void {
+      const etudiantId = this.auth?.user?.id;
+    
+      this.http.getDataAuth(`/etudiant/${etudiantId}/matiere/${matiereId}`).subscribe(
+        (note) => {
+          console.log(note);
+          Swal.fire({
+            title: 'Note',
+            text: `Votre note est : ${note}`,
+            icon: 'info',
+            iconColor: 'orange', // Point d'exclamation en orange
+            confirmButtonColor: 'primary' // Bouton "OK" en bleu
+          });
+        },
+        (error) => {
+          Swal.fire({
+            title: 'Erreur',
+            text: "La note n'est pas encore disponible",
+            icon: 'error',
+            iconColor: 'orange', // Point d'exclamation en orange
+            confirmButtonColor: 'primary' // Bouton "OK" en bleu
+          });
+        }
+      );
+    }
+    
 
 
 

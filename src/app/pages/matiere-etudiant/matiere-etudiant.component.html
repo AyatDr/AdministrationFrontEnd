@@ -37,15 +37,9 @@
     <div class="matiere-footer">
     
       
-        <i class="fa fa-eye view-icon"
-               title="Modifier"
-               [ngStyle]="{ color: hoveredEdit ? 'rgb(0, 128, 0)' : 'rgb(34, 139, 34)' }"
-               (mouseenter)="hoveredEdit = true"
-               (mouseleave)="hoveredEdit = false"
-              
-               data-bs-toggle="modal" 
-               data-bs-target="#editMatiereModal">
-            </i>
+      <button (click)="voirNote(matiere.id)" class="btn" title="Voir Note" style="background-color: #007bff; color: white;">
+        Voir Note
+    </button>
           
     
     </div>
