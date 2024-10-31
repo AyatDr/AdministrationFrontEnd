@@ -7,7 +7,6 @@ import { first } from 'rxjs/operators';
 import { AuthModel } from '../../models/auth.model';
 import { AuthService } from '../../services/auth.service';
 
-import { environment } from 'src/environments/environment';
 
 
 

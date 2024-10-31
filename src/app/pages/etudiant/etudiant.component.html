@@ -6,10 +6,7 @@
     
     </div>
   
-    <div *ngIf="semestre.modules?.length === 0" class="alert alert-warning alert-dismissible fade show" role="alert" style="margin: 10px 0;">
-      <strong>Aucun module trouvé!</strong> Veuillez ajouter un nouveau module.
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+
   
     <div class="card-container">
       <div class="card" *ngFor="let module of semestre.modules">

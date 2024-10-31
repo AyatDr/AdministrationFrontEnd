@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpService } from 'src/app/services/http.service';
-import { ChangeDetectorRef } from '@angular/core';
-import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { HttpService } from 'src/app/services/http.service';
 
 @Component({
   selector: 'app-etudiant',
@@ -39,6 +38,7 @@ export class EtudiantComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
+    this.loadDataSemestre();
   }
 
   loadData(): void {
@@ -49,7 +49,27 @@ export class EtudiantComponent implements OnInit {
 
         // Stockage de la formation entière et du premier semestre
         this.data = response;
-        this.semestre = response?.semestres[0] || {};
+        this.cdr.detectChanges();
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des données:', error);
+        this.errorMessage = 'Erreur de récupération des données';
+      }
+    );
+  }
+
+
+  semestreEtudiant : any
+
+  loadDataSemestre(): void {
+    const id = this.auth?.user?.id; 
+    this.http.getDataAuth(`/SemestreByEtudiant/${id}`).subscribe(
+      (response: any) => {
+        console.log('Données reçues du backend:', response);
+
+        // Stockage de la formation entière et du premier semestre
+        this.semestreEtudiant = response;
+        this.semestre = this.semestreEtudiant;
         this.cdr.detectChanges();
       },
       (error) => {
