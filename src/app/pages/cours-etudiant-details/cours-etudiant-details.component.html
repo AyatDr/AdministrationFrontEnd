@@ -22,11 +22,12 @@ style="margin: 10px 0;">
 <tbody>
  <!-- Documents -->
  <tr *ngFor="let doc of documents">
-   <td>
-     <i [ngClass]="getIconClass(doc.urlDoc)"></i>
-     {{ doc.label }}
-   </td>
- </tr>
+    <td style=" cursor: pointer;">
+      <i [ngClass]="[getIconClass(doc.urlDoc), 'clickable-icon']"></i>
+      {{ doc.label }}
+    </td>
+  </tr>
+  
 
  <!-- Liens -->
  <tr *ngFor="let lien of liens">
