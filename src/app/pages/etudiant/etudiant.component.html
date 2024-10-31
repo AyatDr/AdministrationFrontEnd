@@ -1,0 +1,50 @@
+<div *ngIf="semestre">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2> La formation : <span class="badge bg-dark ms-3 " style="font-size: 16px;"> {{data.label}} </span> ->    
+        <span class="badge bg-dark ms-3 badge-large" style="font-size: 16px;">{{ semestre.label }}</span>
+      </h2>
+    
+    </div>
+  
+    <div *ngIf="semestre.modules?.length === 0" class="alert alert-warning alert-dismissible fade show" role="alert" style="margin: 10px 0;">
+      <strong>Aucun module trouvé!</strong> Veuillez ajouter un nouveau module.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  
+    <div class="card-container">
+      <div class="card" *ngFor="let module of semestre.modules">
+        <div class="card-content" (click)="goToMatierePage(module)">
+          <i class="fa fa-chalkboard-teacher folder-icon" style="font-size: 24px; color: orange"></i> 
+          <div class="text-content">
+            <h3 class="card-title" style="margin-bottom: 10px; font-weight: bold; font-size: 18px; color: #000; text-transform: uppercase;">
+              {{ module.label }}
+            </h3>
+          </div>
+        </div>
+    
+        <div class="card-footer">
+            <span style="
+            font-weight: bold;
+            font-size: 12px;
+            color: #fff;
+            background: linear-gradient(45deg, #3725d6, #647997);
+            padding: 6px 12px;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            letter-spacing: 1px;
+            margin-right: auto; /* Pousse les icônes vers la droite */
+          ">
+            {{ module.matieres?.length || 0 }} Matière(s)
+          </span>
+  
+        
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  

@@ -109,6 +109,14 @@ const Routing: Routes = [
   {
     path: 'prof/formation/:formation/semestre/:semestre/module/:module/matieres/list',
     loadChildren: () => import('./matiere-professeur/matiere-professeur.module').then((m) => m.MatiereProfesseurModule),
+  }, 
+  {
+    path: 'apps/Etudiant',
+    loadChildren: () => import('./etudiant/etudiant.module').then((m) => m.EtudiantModule),
+  }, 
+  {
+    path: 'apps/MatiereEtudiant',
+    loadChildren: () => import('./matiere-etudiant/matiere-etudiant.module').then((m) => m.MatiereEtudiantModule),
   },     
 
 ];

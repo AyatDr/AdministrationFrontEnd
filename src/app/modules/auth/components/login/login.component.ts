@@ -90,7 +90,13 @@ export class LoginComponent implements OnInit, OnDestroy {
         } else if (auth?.permissions === 'prof') {
           this.router.navigate(['prof/formations/list']);
 
-        } else {
+        }
+        else if (auth?.permissions === 'etudiant') {
+          this.router.navigate(['apps/Etudiant']);
+
+        }
+        
+        else {
           this.hasError = true;
         }
       });
