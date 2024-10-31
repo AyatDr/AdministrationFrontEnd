@@ -117,6 +117,14 @@ const Routing: Routes = [
   {
     path: 'apps/MatiereEtudiant',
     loadChildren: () => import('./matiere-etudiant/matiere-etudiant.module').then((m) => m.MatiereEtudiantModule),
+  },  
+  {
+    path: 'apps/CoursEtudiant',
+    loadChildren: () => import('./cours-etudiant/cours-etudiant.module').then((m) => m.CoursEtudiantModule),
+  },  
+  {
+    path: 'apps/DocumentsEtudiant',
+    loadChildren: () => import('./cours-etudiant-details/cours-etudiant-details.module').then((m) => m.CoursEtudiantDetailsModule),
   },     
 
 ];

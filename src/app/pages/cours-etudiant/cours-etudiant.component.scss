@@ -1,0 +1,131 @@
+/* Container global pour les cours */
+.cours-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+  }
+  
+  /* Style des cartes de cours */
+  .cours-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f0f4f8;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 15px 20px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+    cursor: pointer;
+  }
+  
+  .cours-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Contenu principal des cartes */
+  .cours-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .cours-icon {
+    font-size: 28px;
+    color: orange;
+  }
+  
+  .text-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .cours-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: #004d40;
+  }
+  
+  .cours-description {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  /* Actions à droite de la carte */
+  .cours-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .cours-actions i {
+    font-size: 22px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .cours-actions .delete-icon:hover {
+    color: rgb(180, 50, 50);
+  }
+  
+  .cours-actions .edit-icon:hover {
+    color: rgb(0, 128, 0);
+  }
+  
+  /* Badge plus stylisé */
+  .badge-large {
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 15px;
+    background-color: rgb(0, 128, 0) !important;
+    color: white;
+  }
+  
+  
+.add-formation-btn {
+  margin-bottom: 20px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.modal-content {
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  background-color: #007bff;
+  color: white;
+  border-radius: 15px 15px 0 0;
+}
+
+.form-control {
+  border-radius: 8px;
+}
+
+textarea.form-control {
+  resize: none;
+  height: 100px;
+}
+
+.modal-footer button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.modal-footer .btn-success {
+  background-color: #28a745;
+  border: none;
+}
+
+.modal-footer .btn-secondary {
+  background-color: #6c757d;
+  border: none;
+}

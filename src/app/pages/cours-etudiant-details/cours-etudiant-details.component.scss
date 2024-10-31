@@ -1,0 +1,65 @@
+/* Conteneur principal avec une carte arrondie et couleur bleu clair */
+.cours-details {
+    padding: 20px;
+    border-radius: 12px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    background-color:#f0f4f8 ;
+  }
+  
+  /* Table stylisée */
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color:  #f0f4f8;
+  }
+  
+ 
+  
+  .table th, .table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+    background-color: #f0f4f8 ;
+  }
+
+  
+  .table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Couleur de fond par défaut des lignes */
+  .table-hover tbody tr {
+    background-color: #e3f2fd;
+  }
+  
+  /* Icône PDF en rouge */
+  .pdf-icon {
+    font-size: 18px;
+    color: red;
+    margin-right: 10px;
+  }
+  
+  /* Icône Word en bleu */
+  .word-icon {
+    font-size: 18px;
+    color: blue;
+    margin-right: 10px;
+  }
+  
+  /* Icône de lien */
+  .link-icon {
+    font-size: 18px;
+    color: #007bff;
+    margin-right: 10px;
+  }
+  
+  /* Badge stylisé */
+  .badge-large {
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 15px;
+    background-color: rgb(0, 128, 0) !important;
+    color: white;
+  }
+  

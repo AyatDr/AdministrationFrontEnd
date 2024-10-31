@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="d-flex align-items-center">
+      Liste des Cours de : 
+      <span class="badge bg-info ms-3 badge-large">{{ matiere.label }}</span>
+    </h2>
+  
+  </div>
+
+  <div *ngIf="cours.length === 0" 
+     class="alert alert-warning alert-dismissible fade show" 
+     role="alert" 
+     style="margin: 10px 0;">
+  <strong>Aucun cours trouvé !</strong> votre prof n' a pas encore déposé le cours.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+  
+  <div class="cours-container">
+    <div class="cours-card" *ngFor="let cour of cours"  >
+        <div class="cours-content" (click)="goToCoursDetailsPage(cour)">
+          <i class="fa fa-file-alt cours-icon"></i>
+          <div class="text-content">
+            <h3 class="cours-title">{{ cour.label }}</h3>
+            <p class="cours-description" (click)="goToCoursDetailsPage(cour)">
+              Ce cours contient <strong>{{ cour.documents?.length || 0 }}</strong> document(s) 
+              et <strong>{{ cour.liens?.length || 0 }}</strong> lien(s).
+            </p>
+          </div>
+        </div>
+      
+       
+      </div>
+      
+  </div>
+  
+
+
+
+  

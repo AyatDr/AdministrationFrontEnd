@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="d-flex align-items-center">
+      Liste des Documents et Liens de : 
+      <span class="badge bg-dark ms-3 badge-large">{{ cour.label }}</span>
+    </h2>
+  
+  
+  </div>
+  
+ <!-- Alerte Bootstrap si aucun document ni lien -->
+<div *ngIf="documents.length === 0 && liens.length === 0" 
+class="alert alert-warning alert-dismissible fade show" 
+role="alert" 
+style="margin: 10px 0;">
+<strong>Aucun contenu trouvé!</strong> Il n'y a ni document ni lien disponible.
+<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<!-- Carte des détails du cours uniquement si des documents ou liens existent -->
+<div *ngIf="documents.length > 0 || liens.length > 0" class="card cours-details">
+<table class="table table-hover">
+<tbody>
+ <!-- Documents -->
+ <tr *ngFor="let doc of documents">
+   <td>
+     <i [ngClass]="getIconClass(doc.urlDoc)"></i>
+     {{ doc.label }}
+   </td>
+ </tr>
+
+ <!-- Liens -->
+ <tr *ngFor="let lien of liens">
+   <td>
+     <i class="fa fa-link link-icon"></i>
+     <a [href]="lien.urlLien" target="_blank">{{ lien.urlLien }}</a>
+   </td>
+ </tr>
+</tbody>
+</table>
+</div>
+
+  
