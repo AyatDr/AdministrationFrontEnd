@@ -47,78 +47,7 @@ export class CoursEtudiantDetailsComponent {
     }
   }
   
-  // loadData(): void {
-  //   this.http.getDataAuth('/formation/list').subscribe(
-  //     (response) => {
-  //       console.log('Données reçues du backend :', response);
-  
-  //       // Assurez-vous que `response` est un objet contenant des formations
-  //       const formations = response || [];
-  //       console.log('Formations extraites :', formations);
-  
-  //       if (formations.length === 0) {
-  //         console.error('Aucune formation trouvée');
-  //         this.errorMessage = 'Aucune formation disponible';
-  //         return;
-  //       }
-  
-  //       // ID du cours reçu via `history.state`
-  //       const courId = this.cour?.id;
-  //       console.log('ID du cours : ', courId);
-  
-  //       if (!courId) {
-  //         console.error('ID du cours non défini');
-  //         this.errorMessage = 'ID du cours manquant';
-  //         return;
-  //       }
-  
-  //       // Rechercher le cours dans formations -> semestres -> modules -> matières -> cours
-  //       let foundCour: any = null;
-  
-  //       for (const formation of formations) {
-  //         for (const semestre of formation.semestres) {
-  //           for (const module of semestre.modules) {
-  //             for (const matiere of module.matieres) {
-  //               foundCour = matiere.cours.find((c: any) => c.id === courId);
-  //               if (foundCour) {
-  //                 // Mettre à jour la formation, semestre, module, et matière correspondants si trouvés
-  //                 this.formation = formation;
-  //                 this.semestre = semestre;
-  //                 this.module = module;
-  //                 this.matiere = matiere;
-  //                 break;
-  //               }
-  //             }
-  //             if (foundCour) break;
-  //           }
-  //           if (foundCour) break;
-  //         }
-  //         if (foundCour) break;
-  //       }
-  
-  //       if (!foundCour) {
-  //         console.error('Cours non trouvé avec l\'ID : ', courId);
-  //         this.errorMessage = 'Cours introuvable';
-  //         return;
-  //       }
-  
-  //       // Mettre à jour le cours et ses documents/liens
-  //       this.cour = foundCour;
-  //       this.documents = this.cour.documents || [];
-  //       this.liens = this.cour.liens || [];
-  //       console.log('Cours, documents et liens mis à jour : ', this.cour);
-  
-  //       // Mettre à jour la vue avec ChangeDetectorRef
-  //       this.cdr.detectChanges();
-  //     },
-  //     (error) => {
-  //       console.error('Erreur lors de la récupération des données :', error);
-  //       this.errorMessage = 'Erreur de récupération des données';
-  //     }
-  //   );
-  // }
-  
-
+ 
 
   getRandomColor(): string {
     const colors = ['#FF5733', '#007BFF', '#0056D2', '#003C9E', '#001F6C'];
@@ -138,7 +67,7 @@ export class CoursEtudiantDetailsComponent {
       case 'xlsx':
         return 'fas fa-file-excel text-success fs-2x'; // Excel vert
       default:
-        return 'fas fa-file'; // Icône par défaut
+        return 'fas fa-file fs-2x'; // Icône par défaut
     }
   }
   
@@ -148,6 +77,20 @@ export class CoursEtudiantDetailsComponent {
   }
   
 
+  openDocument(id: number): void {
+    this.http.getDataAuth(`/GetDocumetEtudiant/${id}`).subscribe(
+      (response: { url: string }) => {  // Ensure the response is typed correctly
+        console.log('URL received from backend:', response.url);
+        window.open(`http://localhost:8081/${response.url}`, '_blank');
+      },
+      (error) => {
+        console.error('Error retrieving document:', error);
+        alert('Error retrieving document');
+      }
+    );
+  }
+  
+  
 
 
 

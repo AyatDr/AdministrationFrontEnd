@@ -22,7 +22,7 @@ style="margin: 10px 0;">
 <tbody>
  <!-- Documents -->
  <tr *ngFor="let doc of documents">
-    <td style=" cursor: pointer;">
+    <td style=" cursor: pointer;" (click)=" openDocument(doc.id)">
       <i [ngClass]="[getIconClass(doc.urlDoc), 'clickable-icon']"></i>
       {{ doc.label }}
     </td>
