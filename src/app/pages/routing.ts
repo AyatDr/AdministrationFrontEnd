@@ -125,7 +125,37 @@ const Routing: Routes = [
   {
     path: 'apps/DocumentsEtudiant',
     loadChildren: () => import('./cours-etudiant-details/cours-etudiant-details.module').then((m) => m.CoursEtudiantDetailsModule),
-  },     
+  },  
+  
+  
+  {
+    path: 'prof/formation/:formation/semestre/:semestre/module/:module/matiere/:matiere/cours/list',
+    loadChildren: () => import('./cours-professeur/cours-professeur.module').then((m) => m.CoursProfesseurModule),
+  },
+  {
+    path: 'prof/formation/:formation/semestre/:semestre/module/:module/matiere/:matiere/cours/create',
+    loadChildren: () => import('./add-cours-professeur/add-cours-professeur.module').then((m) => m.AddCoursProfesseurModule),
+  },
+  {
+    path: 'prof/formation/:formation/semestre/:semestre/module/:module/matiere/:matiere/cours/:cours/edit',
+    loadChildren: () => import('./edit-cours-professeur/edit-cours-professeur.module').then((m) => m.EditCoursProfesseurModule),
+  },
+  {
+    path: 'prof/formation/:formation/semestre/:semestre/module/:module/matiere/:matiere/cours/:cours/resources/list',
+    loadChildren: () => import('./cours-resources-professeur/cours-resources-professeur.module').then((m) => m.CoursResourcesProfesseurModule),
+  },
+  {
+    path: 'prof/formation/:formation/semestre/:semestre/module/:module/matiere/:matiere/cours/:cours/lien/create',
+    loadChildren: () => import('./add-lien-professeur/add-lien-professeur.module').then((m) => m.AddLienProfesseurModule),
+  },
+  {
+    path: 'prof/formation/:formation/semestre/:semestre/module/:module/matiere/:matiere/cours/:cours/document/create',
+    loadChildren: () => import('./add-document-professeur/add-document-professeur.module').then((m) => m.AddDocumentProfesseurModule),
+  },
+  {
+    path: 'prof/formation/:formation/semestre/:semestre/module/:module/matiere/:matiere/etudiants/list',
+    loadChildren: () => import('./etudiant-professeur/etudiant-professeur.module').then((m) => m.EtudiantProfesseurModule),
+  },
 
 ];
 
