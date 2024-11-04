@@ -1,0 +1,40 @@
+<button (click)="navigateToCours()" class="retour-btn" type="button">Retour</button>
+<div class="form-wrapper">
+  <h1>Ajouter Un Nouveau Lien Au Cours {{ cours?.label }}</h1>
+  <form [formGroup]="courseForm" (ngSubmit)="onSubmit()" class="course-form">
+    <!-- Label Input -->
+    <div class="form-group">
+      <label for="label">Label</label>
+      <input 
+        id="label" 
+        formControlName="label" 
+        type="text" 
+        placeholder="Entrez le label du lien" 
+        required 
+        class="form-control" 
+      />
+      <div *ngIf="courseForm.get('label')?.errors && courseForm.get('label')?.touched" class="error-message">
+        <small *ngIf="courseForm.get('label')?.errors?.['required']">Le label est obligatoire.</small>
+      </div>
+    </div>
+
+    <!-- URL Input -->
+    <div class="form-group">
+      <label for="url">URL</label>
+      <input 
+        id="url" 
+        formControlName="url" 
+        type="url" 
+        placeholder="Entrez l'URL du lien (ex: https://example.com)" 
+        required 
+        class="form-control" 
+      />
+      <div *ngIf="courseForm.get('url')?.errors && courseForm.get('url')?.touched" class="error-message">
+        <small *ngIf="courseForm.get('url')?.errors?.['required']">L'URL est obligatoire.</small>
+        <small *ngIf="courseForm.get('url')?.errors?.['pattern']">L'URL n'est pas valide. Elle doit commencer par http:// ou https://</small>
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn" [disabled]="courseForm.invalid">Sauvegarder</button>
+  </form>      
+</div>

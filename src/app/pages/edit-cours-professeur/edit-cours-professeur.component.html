@@ -1,0 +1,17 @@
+<button (click)="navigateToCours()" class="retour-btn" type="button">Retour</button>
+
+<div class="form-wrapper">
+  <h1>Modifier le Cours</h1>
+  <form [formGroup]="courseForm" (ngSubmit)="onSubmit()" class="course-form">
+    <!-- Label Input -->
+    <div class="form-group">
+      <label for="label">Label</label>
+      <input id="label" formControlName="label" type="text" placeholder="Enter course label" required class="form-control" />
+      <div *ngIf="courseForm.get('label')?.hasError('required') && courseForm.get('label')?.touched" class="error-message">
+        <small>The label is required.</small>
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn" [disabled]="courseForm.invalid">Sauvegarder</button>
+  </form>      
+</div>

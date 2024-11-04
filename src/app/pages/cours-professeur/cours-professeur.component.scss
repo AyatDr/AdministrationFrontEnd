@@ -1,0 +1,114 @@
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .card {
+    width: 300px;
+    height: 250px; /* Reduced card height */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .card-header {
+    height: 120px; /* Reduced header height */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: flex-end; /* Ensure profile circle stays on the right */
+    align-items: center;
+    position: relative;
+    color: white;
+    padding: 15px;
+    overflow: hidden; /* Prevent overflow issues */
+    border-radius: 10px; /* Optional rounded corners */
+  
+    /* Add subtle blur to the background image */
+   /* Subtle blur effect */
+    transition: filter 0.3s ease-in-out; /* Smooth transition on hover */
+  }
+  
+  /* On hover: Remove the blur */
+ 
+  
+  .card-header {
+    height: 120px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative; /* Required for absolute positioning of child elements */
+    color: white;
+    padding: 15px;
+    overflow: hidden; /* Prevent overflow */
+    border-radius: 10px; /* Optional: Rounded corners */
+  }
+  
+  /* Overlay to improve text readability */
+  .card-header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    z-index: 0; /* Stays below other elements */
+  }
+  
+  /* Profile Circle Styling */
+  .profile-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.6); /* Add a background for visibility */
+  
+    position: absolute;
+    top: 30%; /* Positioned below the header */
+    right: 5px; /* Align with the right side */
+    transform: translateY(-50%); /* Adjust for proper centering */
+    z-index: 100; /* Ensure it stays above the overlay but below very high elements */
+  }
+  
+  .card-body {
+    padding: 10px;
+    font-size: 14px;
+    flex-grow: 1; /* Ensure the body takes up the remaining space */
+  }
+  
+  .card-footer {
+    background-color: rgb(214, 213, 213);
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end; /* Align items to the right */
+    align-items: center;
+  }
+  
+  .card-footer i {
+    margin-left: 10px; /* Add space between the icons */
+  }
+
+  .retour-btn {
+    padding: 8px 12px;
+    border: 1px solid #0a4086;
+    border-radius: 6px;
+    color: #0a4086;
+    background-color: transparent;
+    margin: 15px 0;
+  }
+  

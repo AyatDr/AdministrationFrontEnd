@@ -1,0 +1,44 @@
+<button (click)="navigateToCours()" class="btn" type="button">Retour</button>
+
+<div class="course-container">
+
+    <div class="course-header">
+        <h2>{{ data?.label }}</h2>
+        <div class="action-buttons">
+            <button (click)="createLien()" class="btn">Ajouter Lien</button>
+            <button (click)="createDocument()" class="btn">Ajouter Document</button>
+        </div>
+    </div>
+
+    <div class="liens-section">
+        <h3>Liens:</h3>
+        <div class="liens-list">
+        <div class="lien-item" *ngFor="let lien of data?.liens">
+            <div class="lien-label">
+            <span>{{ lien?.label }}</span>
+            </div>
+            <div class="lien-url">
+            <a [href]="lien.urlLien" target="_blank">{{ lien?.urlLien }}</a>
+            </div>
+            <i (click)="deleteLien(lien.id)" style="color: rgb(255, 0, 0); font-size: 20px; cursor: pointer;" class="fa-solid fa-trash"></i>
+        </div>
+        </div>
+    </div>
+
+    <div class="documents-section">
+        <h3>Documents:</h3>
+        <div class="documents-list">
+        <div class="document-item" *ngFor="let document of data?.documents">
+            <div class="document-label">
+            <span>{{ document?.label }}</span>
+            </div>
+            <div class="document-url">
+            <a [href]="'http://localhost:8081/' + document.urlDoc" target="_blank">{{ document?.urlDoc }}</a>
+            </div>
+            <i (click)="deleteDocument(document.id)" style="color: rgb(255, 0, 0); font-size: 20px; cursor: pointer;" class="fa-solid fa-trash"></i>
+        </div>
+        </div>
+    </div>
+
+</div>
+  

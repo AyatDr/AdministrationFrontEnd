@@ -1,0 +1,44 @@
+<button (click)="navigateToMatieres()" class="retour-btn" type="button">Retour</button>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Liste des Cours Du Professeur {{ authProf.nom }} {{ authProf.prenom }} Pour la Matiere : {{ matiereLabel }}</h2>
+    <button (click)="createCours()" class="retour-btn" type="button">Ajouter Cours</button>
+</div>
+<div class="card-container">
+
+    <div class="card" *ngFor="let cours of data">
+
+        <div
+            class="card-header"
+            [ngStyle]="{ 'background-image': 'url(' + cours.image + ')' }"
+            >
+        
+            <div 
+            class="profile-circle" 
+            [ngStyle]="{ 'background-color': cours.backgroundColor }"
+            >
+                {{ cours.initial }}
+            </div>
+      </div>
+
+      <div class="card-body">
+        <div class="card-title">
+            <h3>{{ cours.label }}</h3>
+            <p>{{ authProf.nom }} {{ authProf.prenom }}</p>
+        </div>
+      </div>
+  
+      <div class="card-footer">
+    
+        <i (click)="navigateToResources(cours.id)" class="fa fa-eye" title="Voir les détails" style="color: rgb(10, 64, 134); font-size: 20px; cursor: pointer;"></i>
+        
+        <i (click)="editCours(cours.id)" class="fa-solid fa-pen-to-square" style="color: rgb(10, 64, 134); font-size: 20px; cursor: pointer;"></i>
+
+        <i (click)="deleteCours(cours.id)" style="color: rgb(255, 0, 0); font-size: 20px; cursor: pointer;" class="fa-solid fa-trash"></i>
+
+      </div>
+      
+    </div>
+
+</div>
+  

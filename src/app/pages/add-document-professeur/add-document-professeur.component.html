@@ -1,0 +1,40 @@
+<button (click)="navigateToCours()" class="retour-btn" type="button">Retour</button>
+<div class="form-wrapper">
+  <h1>Ajouter Un Nouveau Document Au Cours {{ cours?.label }}</h1>
+  <form [formGroup]="courseForm" (ngSubmit)="onSubmit()" class="course-form">
+    <!-- Label Input -->
+    <div class="form-group">
+      <label for="label">Label</label>
+      <input 
+        id="label" 
+        formControlName="label" 
+        type="text" 
+        placeholder="Entrez le label du document" 
+        required 
+        class="form-control" 
+      />
+      <div *ngIf="courseForm.get('label')?.errors && courseForm.get('label')?.touched" class="error-message">
+        <small *ngIf="courseForm.get('label')?.errors?.['required']">Le label est obligatoire.</small>
+        <small *ngIf="courseForm.get('label')?.errors?.['minlength']">Le label doit contenir au moins 3 caractères.</small>
+      </div>
+    </div>
+
+    <!-- Document Input -->
+    <div class="form-group">
+      <label for="document">Document</label>
+      <input 
+        id="document" 
+        type="file" 
+        (change)="onFileSelected($event)"
+        class="form-control" 
+        accept=".pdf,.doc,.docx,.txt,.ppt,.pptx"
+      />
+      <div *ngIf="courseForm.get('document')?.errors && courseForm.get('document')?.touched" class="error-message">
+        <small *ngIf="courseForm.get('document')?.errors?.['required']">Le document est obligatoire.</small>
+      </div>
+      <small class="help-text">Formats acceptés: PDF, DOC, DOCX, TXT, PPT, PPTX</small>
+    </div>
+
+    <button type="submit" class="submit-btn" [disabled]="courseForm.invalid">Sauvegarder</button>
+  </form>      
+</div>
