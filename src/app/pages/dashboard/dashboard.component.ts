@@ -94,7 +94,7 @@ export class DashboardComponent implements OnInit {
         console.log('GetFormations reçus du backend:', data);
         this.formations = data;
              // Calculer le nombre d'étudiants
-      const nombreFormation = this.etudiants.length;
+      const nombreFormation = this.formations.length;
       console.log('Nombre total de formation:', nombreFormation);
 
       // Optionnel : Vous pouvez également afficher ce nombre dans l'interface utilisateur
