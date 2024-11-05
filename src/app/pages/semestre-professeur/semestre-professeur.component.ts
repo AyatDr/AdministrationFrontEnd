@@ -30,16 +30,19 @@ export class SemestreProfesseurComponent implements OnInit{
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    
+    this.formationLabel = this.route.snapshot.paramMap.get('label');
     this.formationId = this.route.snapshot.paramMap.get('id');
+   
+    console.log('Valeur de label:', this.formationLabel);
+
     
-    this.http.get<any>(`http://localhost:8081/api/prof/formation/${this.formationId}/semestres/list`)
+    this.http.get<any>(`http://localhost:8081/api/prof/formation/${this.authProf.id}/${this.formationId}/semestres/list`)
       .subscribe(
         (response) => {
 
-          this.formationLabel = response.label;
+          
 
-          this.data = response.semestres.map((item: any) => ({
+          this.data = response.map((item: any) => ({
             id: item.id,
             label: item.label,
             dateDebut: item.dateDebut,
@@ -73,7 +76,7 @@ export class SemestreProfesseurComponent implements OnInit{
   }
 
   navigateToFormations() {
-    this.router.navigate(['/prof/formations/list']);
+    this.router.navigate(['prof/formations/list']);
   }
 
   navigateToModules(semestre: number) {

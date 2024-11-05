@@ -62,7 +62,7 @@ export class FormationProfesseurComponent implements OnInit {
     return colors[randomIndex];
   }
   navigateToSemestres(formationId: number) {
-    this.router.navigate(['/prof/formation', formationId, 'semestres', 'list']);
+    this.router.navigate(['/prof/formation',formationId, 'semestres', 'list']);
   }
 
 }
